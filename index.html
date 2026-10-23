@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#eee9dc">
+  <meta name="theme-color" content="#071a22">
   <meta name="description" content="A private study planner for learning goals, schedules, sessions, and local study files.">
   <title>StudyTrack — Your study day, in focus</title>
   <link rel="manifest" href="./manifest.json">
@@ -14,35 +14,35 @@
   <style>
     /* Theme and page basics */
     :root {
-      color-scheme: light;
-      --page: #f4f7ff;
-      --surface: #ffffff;
-      --surface-soft: #edf3ff;
-      --ink: #1b2440;
-      --muted: #5a6788;
-      --line: #dfe8ff;
-      --accent: #5b6cff;
-      --accent-strong: #3f4ed9;
-      --accent-soft: #e6ebff;
-      --success: #1d9a6c;
-      --danger: #d55b5b;
+      color-scheme: dark;
+      --page: #071a22;
+      --surface: #0d2430;
+      --surface-soft: #123647;
+      --ink: #edf7f5;
+      --muted: #9ab7bd;
+      --line: #2a4f5d;
+      --accent: #51d7b1;
+      --accent-strong: #7be9c8;
+      --accent-soft: rgba(81, 215, 177, 0.12);
+      --success: #72e0af;
+      --danger: #ff7f8d;
       --font-size: 16px;
-      --shadow: 0 16px 40px rgb(53 74 128 / 10%);
+      --shadow: 0 22px 52px rgb(2 12 18 / 45%);
     }
     :root[data-theme="dark"] {
       color-scheme: dark;
-      --page: #0b1120;
-      --surface: #111c2d;
-      --surface-soft: #16263d;
-      --ink: #edf3ff;
-      --muted: #a8b6d8;
-      --line: #2b3d5d;
-      --accent: #8aa8ff;
-      --accent-strong: #b7c8ff;
-      --accent-soft: #172d4f;
-      --success: #52d4a1;
-      --danger: #ff8e7d;
-      --shadow: 0 18px 45px rgb(6 10 20 / 35%);
+      --page: #071a22;
+      --surface: #0d2430;
+      --surface-soft: #123647;
+      --ink: #edf7f5;
+      --muted: #9ab7bd;
+      --line: #2a4f5d;
+      --accent: #51d7b1;
+      --accent-strong: #7be9c8;
+      --accent-soft: rgba(81, 215, 177, 0.12);
+      --success: #72e0af;
+      --danger: #ff7f8d;
+      --shadow: 0 22px 52px rgb(2 12 18 / 45%);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 100px; }
@@ -51,9 +51,12 @@
       min-height: 100vh;
       margin: 0;
       padding: env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(16px, env(safe-area-inset-left, 0px));
-      background: var(--page);
+      background:
+        radial-gradient(circle at top left, rgba(81, 215, 177, 0.12), transparent 28%),
+        radial-gradient(circle at right 18%, rgba(17, 96, 127, 0.18), transparent 25%),
+        var(--page);
       color: var(--ink);
-      font: var(--font-size)/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+      font: var(--font-size)/1.5 Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
     }
     button, input, select { font: inherit; }
     button { cursor: pointer; }
@@ -75,9 +78,9 @@
       gap: 12px;
       margin: 0 -16px 18px;
       padding: 12px max(16px, env(safe-area-inset-left, 0px)) 12px max(16px, env(safe-area-inset-right, 0px));
-      border-bottom: 1px solid var(--line);
-      background: color-mix(in srgb, var(--page) 94%, transparent);
-      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(123, 233, 200, 0.15);
+      background: rgba(7, 26, 34, 0.72);
+      backdrop-filter: blur(18px);
     }
     .brand { display: flex; min-width: 0; align-items: center; gap: 10px; }
     .brand-mark {
@@ -86,10 +89,11 @@
       width: 40px;
       height: 40px;
       place-items: center;
-      border-radius: 13px;
-      background: var(--accent-soft);
-      color: var(--accent-strong);
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+      color: #07252d;
       font-size: 22px;
+      box-shadow: 0 10px 24px rgba(81, 215, 177, 0.25);
     }
     .brand h1 { overflow: hidden; margin: 0; font-size: 1.04rem; letter-spacing: -.025em; text-overflow: ellipsis; white-space: nowrap; }
     .header-subtitle { overflow: hidden; margin: 1px 0 0; color: var(--muted); font-size: .78rem; text-overflow: ellipsis; white-space: nowrap; }
@@ -98,14 +102,15 @@
     .button, .icon-button, .step-button {
       min-height: 40px;
       border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(19, 46, 57, 0.96), rgba(12, 36, 48, 0.96));
       color: var(--ink);
+      box-shadow: 0 8px 18px rgba(2, 11, 17, 0.18);
     }
     .button { padding: 8px 13px; font-weight: 650; }
-    .button:hover, .icon-button:hover, .step-button:hover { background: var(--surface-soft); }
-    .button.primary, .step-button.add { border-color: var(--accent); background: var(--accent); color: #fff; }
-    :root[data-theme="dark"] .button.primary, :root[data-theme="dark"] .step-button.add { color: #18221a; }
+    .button:hover, .icon-button:hover, .step-button:hover { background: rgba(18, 54, 71, 0.9); }
+    .button.primary, .step-button.add { border-color: rgba(123, 233, 200, 0.55); background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%); color: #07252d; }
+    :root[data-theme="dark"] .button.primary, :root[data-theme="dark"] .step-button.add { color: #07252d; }
     .button.danger { color: var(--danger); }
     .button.small { min-height: 34px; padding: 5px 10px; font-size: .84rem; }
     .icon-button { min-width: 40px; padding: 0 9px; }
@@ -113,32 +118,33 @@
       margin: 0 0 16px;
       padding: 12px 14px;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
+      border-radius: 14px;
+      background: rgba(14, 36, 48, 0.92);
+      box-shadow: var(--shadow);
     }
-    .notice.error { border-color: color-mix(in srgb, var(--danger) 50%, var(--line)); color: var(--danger); }
-    .banner { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); background: var(--accent-soft); }
+    .notice.error { border-color: rgba(255, 127, 141, 0.45); color: var(--danger); }
+    .banner { border-color: rgba(81, 215, 177, 0.45); background: rgba(81, 215, 177, 0.1); }
     .muted { color: var(--muted); }
     .auth-screen { display: grid; min-height: 100vh; align-content: center; justify-items: center; padding: 32px 0; }
-    .auth-card { width: min(100%, 440px); padding: 28px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
+    .auth-card { width: min(100%, 440px); padding: 28px; border: 1px solid var(--line); border-radius: 20px; background: rgba(14, 36, 48, 0.95); box-shadow: var(--shadow); }
     .auth-card h1 { margin: 0 0 6px; font-size: 1.5rem; letter-spacing: -.03em; }
     .auth-card > p { color: var(--muted); }
-    .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 20px 0; padding: 4px; border-radius: 11px; background: var(--surface-soft); }
-    .auth-tab { min-height: 38px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font-weight: 650; }
-    .auth-tab[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+    .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 20px 0; padding: 4px; border-radius: 14px; background: rgba(18, 54, 71, 0.8); }
+    .auth-tab { min-height: 38px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font-weight: 650; }
+    .auth-tab[aria-pressed="true"] { background: rgba(81, 215, 177, 0.12); color: var(--ink); box-shadow: inset 0 0 0 1px rgba(123, 233, 200, 0.3); }
     .auth-card .field { margin-bottom: 15px; }
     .auth-card .form-actions { margin-top: 18px; }
     .auth-message { min-height: 1.5em; margin: 14px 0 0; color: var(--muted); font-size: .88rem; }
     .auth-message.error { color: var(--danger); }
-    .auth-setup { margin-top: 18px; padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-soft); font-size: .84rem; }
+    .auth-setup { margin-top: 18px; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: rgba(18, 54, 71, 0.8); font-size: .84rem; }
     .auth-setup p:last-child { margin-bottom: 0; }
-    .eyebrow { margin: 0 0 3px; color: var(--muted); font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .eyebrow { margin: 0 0 3px; color: var(--accent-strong); font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
     h2, h3, p { margin-top: 0; }
     h2 { margin-bottom: 4px; font-size: 1.12rem; letter-spacing: -.02em; }
     h3 { margin-bottom: 8px; font-size: .96rem; }
 
     /* Page sections */
-    .section { margin-bottom: 16px; padding: 19px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+    .section { margin-bottom: 16px; padding: 19px; border: 1px solid var(--line); border-radius: 20px; background: rgba(14, 36, 48, 0.95); box-shadow: var(--shadow); }
     .section-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
     .section-heading p { margin: 0; color: var(--muted); font-size: .84rem; }
     .hero {
@@ -148,9 +154,9 @@
       gap: 16px;
       margin-bottom: 16px;
       padding: 21px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--surface);
+      border: 1px solid rgba(81, 215, 177, 0.28);
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(12, 36, 48, 0.94), rgba(18, 54, 71, 0.96));
       box-shadow: var(--shadow);
     }
     .hero h2 { margin-bottom: 5px; font-size: clamp(1.25rem, 5vw, 1.7rem); }
@@ -161,10 +167,11 @@
       height: 72px;
       align-content: center;
       justify-items: center;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(123, 233, 200, 0.5);
       border-radius: 50%;
-      background: var(--surface-soft);
+      background: rgba(81, 215, 177, 0.08);
       color: var(--accent-strong);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
     }
     .score strong { font-size: 1.18rem; line-height: 1.1; }
     .score span { margin-top: 3px; color: var(--muted); font-size: .62rem; }
@@ -172,18 +179,18 @@
     .target, .schedule-item, .reminder-item {
       padding: 13px;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--surface);
+      border-radius: 16px;
+      background: rgba(12, 36, 48, 0.88);
     }
-    .target.complete { border-color: color-mix(in srgb, var(--success) 42%, var(--line)); }
+    .target.complete { border-color: rgba(114, 224, 175, 0.4); }
     .target-heading, .schedule-row, .reminder-row, .manage-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .target-name, .schedule-title { overflow-wrap: anywhere; font-weight: 700; }
     .target-count, .schedule-time { flex: 0 0 auto; color: var(--muted); font-size: .85rem; }
     .complete-text { color: var(--success); font-weight: 700; }
     .target-meta, .schedule-meta, .reminder-meta { margin: 4px 0 10px; color: var(--muted); font-size: .79rem; }
-    .progress-track { height: 7px; overflow: hidden; border-radius: 99px; background: var(--surface-soft); }
-    .progress-fill { height: 100%; border-radius: inherit; background: var(--accent); transition: width .2s ease; }
-    .complete .progress-fill { background: var(--success); }
+    .progress-track { height: 7px; overflow: hidden; border-radius: 99px; background: rgba(123, 233, 200, 0.08); }
+    .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-strong) 100%); transition: width .2s ease; }
+    .complete .progress-fill { background: linear-gradient(90deg, var(--success) 0%, #96f7c9 100%); }
     .target-controls { display: flex; align-items: center; gap: 8px; margin-top: 11px; }
     .target-controls .spacer { flex: 1; }
     .step-button { display: grid; width: 34px; min-height: 34px; place-items: center; font-size: 1.1rem; }
@@ -195,11 +202,11 @@
     .schedule-actions { flex: 0 0 auto; }
     .reminder-status { flex: 0 0 auto; color: var(--muted); font-size: .76rem; }
     .reminder-status.due { color: var(--accent-strong); font-weight: 700; }
-    .empty { padding: 19px; border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); text-align: center; }
+    .empty { padding: 19px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); text-align: center; }
     .empty strong { display: block; margin-bottom: 3px; color: var(--ink); }
     .week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 7px; }
-    .week-day { padding: 9px 2px; border-radius: 10px; background: var(--surface-soft); text-align: center; }
-    .week-day.today { outline: 1px solid var(--accent); background: var(--accent-soft); }
+    .week-day { padding: 9px 2px; border-radius: 12px; background: rgba(18, 54, 71, 0.7); text-align: center; }
+    .week-day.today { outline: 1px solid rgba(123, 233, 200, 0.5); background: rgba(81, 215, 177, 0.08); }
     .week-day span { display: block; color: var(--muted); font-size: .68rem; }
     .week-day strong { display: block; margin: 4px 0 2px; font-size: .82rem; }
 
@@ -212,8 +219,8 @@
       min-height: 42px;
       padding: 8px 10px;
       border: 1px solid var(--line);
-      border-radius: 9px;
-      background: var(--surface-soft);
+      border-radius: 10px;
+      background: rgba(18, 54, 71, 0.8);
       color: var(--ink);
     }
     .field input[type="color"] { padding: 4px; }
@@ -228,17 +235,17 @@
       gap: 5px;
       padding: 5px 9px;
       border: 1px solid var(--line);
-      border-radius: 9px;
-      background: var(--surface-soft);
+      border-radius: 10px;
+      background: rgba(18, 54, 71, 0.8);
       font-size: .8rem;
     }
     .settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
-    .target-form-wrap, .schedule-form-wrap { margin-bottom: 16px; padding: 14px; border-radius: 12px; background: var(--surface-soft); }
-    .import-box { margin-bottom: 16px; padding: 14px; border: 1px dashed var(--line); border-radius: 12px; background: var(--surface-soft); }
-    .import-box textarea { width: 100%; min-height: 170px; resize: vertical; padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--ink); font: .84rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .target-form-wrap, .schedule-form-wrap { margin-bottom: 16px; padding: 14px; border-radius: 16px; background: rgba(18, 54, 71, 0.7); }
+    .import-box { margin-bottom: 16px; padding: 14px; border: 1px dashed var(--line); border-radius: 14px; background: rgba(18, 54, 71, 0.7); }
+    .import-box textarea { width: 100%; min-height: 170px; resize: vertical; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: rgba(7, 26, 34, 0.8); color: var(--ink); font: inherit; }
     .import-help { margin: 8px 0 12px; color: var(--muted); font-size: .79rem; }
     .import-preview { display: grid; gap: 8px; margin: 12px 0; }
-    .import-preview-item { padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .import-preview-item { padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: rgba(7, 26, 34, 0.65); }
     .import-preview-item strong { display: block; overflow-wrap: anywhere; }
     .import-preview-item span { color: var(--muted); font-size: .8rem; }
     .form-actions { justify-content: flex-end; }
@@ -250,7 +257,7 @@
       overflow: auto;
       place-items: center;
       padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px));
-      background: rgb(15 22 16 / 68%);
+      background: rgba(3, 9, 13, 0.7);
     }
     .bedtime-card {
       width: min(100%, 620px);
@@ -258,63 +265,63 @@
       overflow: auto;
       padding: 22px;
       border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--surface);
+      border-radius: 22px;
+      background: rgba(14, 36, 48, 0.96);
       box-shadow: 0 24px 80px rgb(0 0 0 / 25%);
     }
     .bedtime-card h2 { font-size: 1.5rem; }
     .bedtime-target { display: grid; grid-template-columns: minmax(0, 1fr) 92px; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
     .bedtime-target:first-child { border-top: 0; }
-    .bedtime-target input { width: 100%; min-height: 40px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-soft); color: var(--ink); }
-    .bedtime-add { margin: 12px 0; padding: 12px; border-radius: 11px; background: var(--surface-soft); }
+    .bedtime-target input { width: 100%; min-height: 40px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 10px; background: rgba(18, 54, 71, 0.8); color: var(--ink); }
+    .bedtime-add { margin: 12px 0; padding: 12px; border-radius: 12px; background: rgba(18, 54, 71, 0.8); }
     .footer { margin: 16px 0 0; color: var(--muted); font-size: .77rem; text-align: center; }
     #import-file { display: none; }
 
     /* FILES — responsive library, upload progress, previews and safe offline states */
     .main-nav { display:flex; gap:8px; overflow-x:auto; padding:0 0 13px; margin:0 0 16px; scrollbar-width:thin; }
-    .main-nav a { flex:0 0 auto; min-height:40px; display:inline-flex; align-items:center; padding:7px 12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--ink); text-decoration:none; font-size:.86rem; font-weight:650; }
-    .main-nav a:hover, .main-nav a:focus-visible { background:var(--accent-soft); }
-    .dropzone { display:grid; min-height:132px; place-items:center; padding:20px; border:2px dashed var(--line); border-radius:14px; background:var(--surface-soft); text-align:center; transition:border-color .15s ease, background .15s ease; }
-    .dropzone.dragover { border-color:var(--accent); background:var(--accent-soft); }
+    .main-nav a { flex:0 0 auto; min-height:40px; display:inline-flex; align-items:center; padding:7px 12px; border:1px solid var(--line); border-radius:12px; background:rgba(14, 36, 48, 0.9); color:var(--ink); }
+    .main-nav a:hover, .main-nav a:focus-visible { background:rgba(81, 215, 177, 0.08); }
+    .dropzone { display:grid; min-height:132px; place-items:center; padding:20px; border:2px dashed var(--line); border-radius:16px; background:rgba(18, 54, 71, 0.8); text-align:center; transition:all .18s ease; }
+    .dropzone.dragover { border-color:rgba(123, 233, 200, 0.7); background:rgba(81, 215, 177, 0.08); }
     .dropzone p { margin:6px 0 0; color:var(--muted); font-size:.84rem; }
     .file-toolbar { display:grid; grid-template-columns:minmax(0,1fr) 170px 170px; gap:8px; margin:14px 0; }
-    .file-toolbar input, .file-toolbar select, .session-form input, .session-form textarea, .file-dialog textarea { width:100%; min-height:42px; padding:8px 10px; border:1px solid var(--line); border-radius:9px; background:var(--surface-soft); color:var(--ink); }
+    .file-toolbar input, .file-toolbar select, .session-form input, .session-form textarea, .file-dialog textarea { width:100%; min-height:42px; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:rgba(18, 54, 71, 0.75); color:var(--ink); }
     .file-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; }
-    .file-card { min-width:0; padding:12px; border:1px solid var(--line); border-radius:12px; background:var(--surface); }
-    .file-thumb { display:grid; height:126px; place-items:center; overflow:hidden; margin:-1px -1px 10px; border-radius:9px; background:var(--surface-soft); color:var(--muted); font-size:2.2rem; }
+    .file-card { min-width:0; padding:12px; border:1px solid var(--line); border-radius:16px; background:rgba(14, 36, 48, 0.9); }
+    .file-thumb { display:grid; height:126px; place-items:center; overflow:hidden; margin:-1px -1px 10px; border-radius:12px; background:rgba(18, 54, 71, 0.7); color:var(--muted); font-size:2.2rem; }
     .file-thumb img { width:100%; height:100%; object-fit:cover; }
     .file-name { margin:0 0 4px; overflow-wrap:anywhere; font-weight:750; }
     .file-meta { margin:0 0 9px; color:var(--muted); font-size:.76rem; }
     .tag-list, .linked-files { display:flex; flex-wrap:wrap; gap:5px; margin:7px 0; }
-    .tag-chip, .file-link-chip { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border:1px solid var(--line); border-radius:99px; background:var(--surface-soft); color:var(--ink); font-size:.73rem; text-decoration:none; }
+    .tag-chip, .file-link-chip { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border:1px solid var(--line); border-radius:999px; background:rgba(81, 215, 177, 0.08); color:var(--ink); }
     .file-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
     .upload-progress { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:8px; margin-top:8px; font-size:.78rem; }
     .upload-progress progress { grid-column:1 / -1; width:100%; height:7px; accent-color:var(--accent); }
-    .storage-meter { height:9px; overflow:hidden; margin:8px 0 5px; border-radius:99px; background:var(--surface-soft); }
-    .storage-meter span { display:block; height:100%; border-radius:inherit; background:var(--accent); transition:width .2s ease; }
+    .storage-meter { height:9px; overflow:hidden; margin:8px 0 5px; border-radius:99px; background:rgba(18, 54, 71, 0.7); }
+    .storage-meter span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--accent) 0%, var(--accent-strong) 100%); transition:width .2s ease; }
     .storage-meter.warning span { background:#d68a29; }
-    .file-dialog { position:fixed; z-index:30; inset:0; display:grid; overflow:auto; place-items:center; padding:max(14px,env(safe-area-inset-top,0px)) 14px max(14px,env(safe-area-inset-bottom,0px)); background:rgb(15 22 16 / 72%); }
-    .file-dialog-card { width:min(100%,820px); max-height:min(92vh,900px); overflow:auto; padding:18px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:0 24px 80px rgb(0 0 0 / 28%); }
+    .file-dialog { position:fixed; z-index:30; inset:0; display:grid; overflow:auto; place-items:center; padding:max(14px,env(safe-area-inset-top,0px)) 14px max(14px,env(safe-area-inset-bottom,0px)) 14px; background:rgba(3,9,13,0.72); }
+    .file-dialog-card { width:min(100%,820px); max-height:min(92vh,900px); overflow:auto; padding:18px; border:1px solid var(--line); border-radius:20px; background:rgba(14,36,48,0.96); box-shadow:0 20px 70px rgba(0,0,0,0.30); }
     .file-dialog-head { display:flex; align-items:start; justify-content:space-between; gap:12px; margin-bottom:12px; }
     .file-dialog-head h2 { overflow-wrap:anywhere; }
     .preview-layout { display:grid; grid-template-columns:minmax(0,1fr); gap:10px; }
     .preview-layout.visual-entry { grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start; }
-    .preview-layout.visual-entry #visual-schedule-entry { min-width:0; padding:12px; border:1px solid var(--line); border-radius:12px; background:var(--surface-soft); }
+    .preview-layout.visual-entry #visual-schedule-entry { min-width:0; padding:12px; border:1px solid var(--line); border-radius:14px; background:rgba(18,54,71,.8); }
     .preview-layout.visual-entry #visual-schedule-entry textarea { min-height:170px; }
-    .preview-stage { min-height:180px; display:grid; place-items:center; overflow:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface-soft); }
+    .preview-stage { min-height:180px; display:grid; place-items:center; overflow:auto; border:1px solid var(--line); border-radius:14px; background:rgba(18,54,71,.8); }
     .preview-stage img { display:block; max-width:100%; max-height:65vh; object-fit:contain; transition:transform .15s ease; }
     .preview-stage iframe { width:100%; height:min(68vh,650px); border:0; background:#fff; }
     .preview-stage pre { width:100%; max-height:65vh; overflow:auto; margin:0; padding:14px; white-space:pre-wrap; overflow-wrap:anywhere; color:var(--ink); font: .88rem/1.55 ui-monospace,SFMono-Regular,Consolas,monospace; }
     .preview-tools { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
-    .session-form { margin:0 0 14px; padding:13px; border-radius:12px; background:var(--surface-soft); }
+    .session-form { margin:0 0 14px; padding:13px; border-radius:14px; background:rgba(18,54,71,.8); }
     .session-grid { display:grid; grid-template-columns:minmax(0,1fr) 180px; gap:9px; }
-    .session-card { margin-top:9px; padding:13px; border:1px solid var(--line); border-radius:12px; background:var(--surface); }
+    .session-card { margin-top:9px; padding:13px; border:1px solid var(--line); border-radius:14px; background:rgba(14,36,48,.9); }
     .session-card p { margin:5px 0; color:var(--muted); font-size:.84rem; white-space:pre-wrap; }
     .attach-list { display:grid; gap:7px; max-height:45vh; overflow:auto; margin:12px 0; }
-    .attach-option { display:flex; align-items:center; gap:9px; padding:9px; border:1px solid var(--line); border-radius:9px; background:var(--surface-soft); }
+    .attach-option { display:flex; align-items:center; gap:9px; padding:9px; border:1px solid var(--line); border-radius:10px; background:rgba(18,54,71,.7); }
     .attach-option input { width:18px; height:18px; accent-color:var(--accent); }
     .local-only-note { color:var(--muted); font-size:.8rem; }
-    @media (max-width:650px) { .preview-layout.visual-entry { grid-template-columns:1fr; } .file-toolbar { grid-template-columns:1fr 1fr; } .file-toolbar input { grid-column:1 / -1; } .file-grid { grid-template-columns:1fr; } .session-grid { grid-template-columns:1fr; } .file-dialog-card { padding:14px; } }
+    @media (max-width:650px) { .preview-layout.visual-entry { grid-template-columns:1fr; } .file-toolbar { grid-template-columns:1fr 1fr; } .file-toolbar input { grid-column:1 / -1; } .file-grid { grid-template-columns:1fr; } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition:none !important; } }
 
     @media (max-width: 600px) {
@@ -338,2404 +345,7 @@
       .schedule-actions .button { min-height: 31px; padding: 4px 7px; }
     }
   </style>
+  <link rel="stylesheet" href="./theme.css">
   <link rel="stylesheet" href="./field-notes.css">
 </head>
 <body>
-  <main id="landing-screen" class="landing-screen">
-    <header class="landing-topbar">
-      <div class="landing-brand">
-        <span class="landing-brand-mark" aria-hidden="true">ST</span>
-        <span class="landing-brand-name">StudyTrack</span>
-      </div>
-      <button id="landing-login" class="landing-login-button" type="button">Log in</button>
-    </header>
-
-    <section class="landing-hero">
-      <p class="landing-kicker">A study journal for busy students</p>
-      <h1>Keep every class, task, and study session in one focused place.</h1>
-      <p class="landing-lede">
-        StudyTrack turns scattered notes, deadlines, and study plans into a clear daily
-        agenda so you always know what to do next.
-      </p>
-      <div class="landing-actions">
-        <button id="landing-login-cta" class="landing-primary-button" type="button">Log in</button>
-        <button id="landing-local" class="landing-secondary-button" type="button">Continue on this device</button>
-      </div>
-    </section>
-
-    <section class="landing-note" aria-labelledby="landing-note-heading">
-      <h2 id="landing-note-heading">Why StudyTrack matters</h2>
-      <p>
-        Students juggle classes, assignments, and revision across many tools. StudyTrack
-        brings them together, making progress visible and helping you build a steady
-        study rhythm without burning out.
-      </p>
-      <div class="landing-mission">
-        <h3>Our mission</h3>
-        <p>
-          Make focused, organized studying accessible to every student by turning daily
-          plans into simple, trackable actions.
-        </p>
-      </div>
-      <div class="landing-how">
-        <h3>How to use it</h3>
-        <ol>
-          <li>Add your daily goals, classes, and study sessions.</li>
-          <li>Review today’s agenda and check items off as you go.</li>
-          <li>Track weekly progress and streaks by course.</li>
-          <li>Keep study files and schedules in your private library.</li>
-        </ol>
-      </div>
-    </section>
-  </main>
-  <main id="auth-screen" class="auth-screen auth-school" hidden>
-    <div class="auth-card" role="dialog" aria-labelledby="auth-heading">
-      <header class="auth-card-header">
-        <p class="auth-wordmark" aria-label="StudyTrack"><span>Study</span><span class="auth-accent">Track</span></p>
-        <h1 id="auth-heading">Log in</h1>
-        <p id="auth-intro" class="auth-subtitle">Pick up where you left off.</p>
-      </header>
-
-      <p id="auth-message" class="auth-banner" role="status" aria-live="polite"></p>
-
-      <form id="auth-form">
-        <div class="auth-field">
-          <label for="auth-email">Email</label>
-          <input id="auth-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
-          <p class="auth-helper" id="auth-email-error">Enter a valid email address.</p>
-        </div>
-
-        <div class="auth-field">
-          <label for="auth-password">Password</label>
-          <div class="auth-password-wrap">
-            <input id="auth-password" type="password" autocomplete="current-password" placeholder="••••••••" required minlength="8">
-            <button type="button" class="auth-toggle" onclick="const i=document.getElementById('auth-password'); i.type=i.type==='password'?'text':'password'; this.textContent=i.type==='password'?'Show':'Hide';">Show</button>
-          </div>
-          <p class="auth-helper" id="auth-password-error">Enter your password.</p>
-        </div>
-
-        <button id="auth-submit" class="auth-button" type="submit" disabled>Log in</button>
-      </form>
-
-      <div class="auth-links">
-        <a class="auth-link" href="#" id="auth-forgot">Forgot password?</a>
-        <a class="auth-link auth-mode-switch" href="#" id="auth-create-account" data-mode="sign-up">Create an account</a>
-      </div>
-
-      <div class="auth-divider" aria-hidden="true"><span>or</span></div>
-      <button id="auth-google" type="button" class="auth-outline-button">Continue with Google</button>
-
-      <div class="auth-compat" hidden>
-        <button id="auth-sign-in-tab" type="button">Sign in</button>
-        <button id="auth-sign-up-tab" type="button">Create account</button>
-      </div>
-
-      <aside id="auth-setup" class="auth-setup" hidden>
-        <strong>Connect your Supabase project to enable accounts.</strong>
-        <p>Set the project URL and anon/publishable key in <code>supabase-config.js</code>, then run the SQL in <code>supabase/schema.sql</code>.</p>
-      </aside>
-
-      <div class="auth-local-actions">
-        <button id="auth-local-continue" class="auth-text-button" type="button" hidden>Continue on this device</button>
-      </div>
-    </div>
-  </main>
-  <div id="app-shell" class="shell" hidden>
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M5.5 7.5c4.4-1.8 8-.9 10.5 1.2v16c-2.8-2.1-6.3-2.8-10.5-1.2v-16Zm21 0c-4.4-1.8-8-.9-10.5 1.2v16c2.8-2.1 6.3-2.8 10.5-1.2v-16Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12h3.5M9 15.5h3.5m6 0H22" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="23.5" cy="8" r="2.2" fill="#D8BB76"/></svg></div>
-        <div>
-          <p class="brand-kicker">A STUDY JOURNAL · NO. 01</p>
-          <h1>StudyTrack</h1>
-          <p id="header-greeting" class="header-subtitle">Make each study session count.</p>
-        </div>
-      </div>
-      <div class="header-actions">
-        <span id="account-email" class="header-date"></span>
-        <span id="header-date" class="header-date"></span>
-        <button id="header-theme" class="icon-button" type="button" aria-label="Change theme" title="Change theme">Theme</button>
-        <button id="sign-out" class="button small" type="button">Sign out</button>
-      </div>
-    </header>
-
-    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
-    <div id="reminder-banner" class="notice banner" role="alert" aria-live="assertive" hidden></div>
-
-      <div class="main-nav" role="tablist" aria-label="Planner menus">
-        <button id="menu-tab-today" class="menu-tab" type="button" role="tab" aria-controls="menu-panel-today" aria-selected="true" data-menu="today">Today</button>
-        <button id="menu-tab-schedule" class="menu-tab" type="button" role="tab" aria-controls="menu-panel-schedule" aria-selected="false" data-menu="schedule" tabindex="-1">Schedule</button>
-        <button id="menu-tab-sessions" class="menu-tab" type="button" role="tab" aria-controls="menu-panel-sessions" aria-selected="false" data-menu="sessions" tabindex="-1">Sessions</button>
-        <button id="menu-tab-files" class="menu-tab" type="button" role="tab" aria-controls="menu-panel-files" aria-selected="false" data-menu="files" tabindex="-1">Files</button>
-        <button id="menu-tab-settings" class="menu-tab" type="button" role="tab" aria-controls="menu-panel-settings" aria-selected="false" data-menu="settings" tabindex="-1">Settings</button>
-      </div>
-    <main>
-      <!-- Two-panel Today dashboard: only today's tasks, classes and study sessions. -->
-      <section id="targets-section" class="section today-activities" aria-labelledby="activities-heading">
-        <div class="today-panel-heading">
-          <div><p id="today-date" class="eyebrow"></p><h2 id="activities-heading">Today’s Activities</h2><p id="summary">Your plan for today, in time order.</p></div>
-          <span id="target-count" class="today-item-count">0 activities</span>
-        </div>
-        <div id="today-list" class="today-agenda" aria-live="polite"></div>
-      </section>
-      <section id="progress-section" class="section progress-panel" aria-labelledby="progress-heading">
-        <div class="section-heading"><div><h2 id="progress-heading">Your Progress</h2><p>A quick read on today and this week.</p></div></div>
-        <div class="progress-overview">
-          <div id="progress-ring" class="progress-ring" role="progressbar" aria-label="Today's overall completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div><strong id="score-value">0%</strong><span>COMPLETE</span></div></div>
-          <div class="streak-card"><span class="streak-kicker">THIS WEEK</span><strong id="streak-value">0</strong><span id="streak-label">day streak</span></div>
-        </div>
-        <section class="course-progress" aria-labelledby="course-progress-heading"><div class="mini-heading"><h3 id="course-progress-heading">Progress by course</h3><span>today</span></div><div id="course-progress-list"></div></section>
-        <section class="weekly-progress" aria-labelledby="weekly-progress-heading"><div class="mini-heading"><h3 id="weekly-progress-heading">Last 7 days</h3><span>daily completion</span></div><div id="week" class="week" aria-label="Overall completion over the last seven days"></div></section>
-      </section>
-
-
-      <!-- FILES: device-only library and upload recovery -->
-      <section id="files-section" class="section" aria-labelledby="files-heading">
-        <div class="section-heading"><div><h2 id="files-heading">My Files</h2><p>Keep study material on this device and link it to your plan.</p></div><span id="file-online-status" class="muted" role="status" aria-live="polite"></span></div>
-        <div id="file-db-status" class="notice" role="status" aria-live="polite">Checking local file storage…</div>
-        <div id="file-dropzone" class="dropzone" role="group" aria-label="Drop study files here or use the upload button">
-          <div><button id="upload-files-button" class="button primary" type="button">Upload files</button><p>or drop files here · PDF, DOCX, TXT, MD, PNG, JPG, WEBP, GIF · up to 10 MB each</p></div>
-          <input id="files-input" type="file" accept=".pdf,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.gif,.csv,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown,text/csv,image/png,image/jpeg,image/webp,image/gif" multiple hidden>
-        </div>
-        <div id="upload-queue" aria-live="polite"></div>
-        <div class="file-toolbar" role="search">
-          <input id="file-search" type="search" placeholder="Search files or tags" aria-label="Search files or tags">
-          <select id="file-type-filter" aria-label="Filter by file type"><option value="all">All file types</option><option value="documents">Documents</option><option value="pdf">PDFs</option><option value="pictures">Pictures</option></select>
-          <select id="file-tag-filter" aria-label="Filter by tag"><option value="all">All tags</option></select>
-        </div>
-        <p id="files-summary" class="muted" role="status" aria-live="polite"></p>
-        <div id="file-list" class="file-grid"><div class="empty"><strong>Loading your files…</strong>Your library is stored only in this browser.</div></div>
-      </section>
-
-      <!-- Study sessions: session records stay in the existing per-account planner; linked file records remain local -->
-      <section id="sessions-section" class="section" aria-labelledby="sessions-heading">
-        <div class="section-heading"><div><h2 id="sessions-heading">Study Sessions</h2><p>Plan focused study time and keep its materials close.</p></div></div>
-        <form id="session-form" class="session-form">
-          <input id="session-id" type="hidden">
-          <div class="session-grid"><div class="field"><label for="session-title">Session</label><input id="session-title" maxlength="100" placeholder="e.g. Review biology notes" required></div><div class="field"><label for="session-date">Date and time</label><input id="session-date" type="datetime-local" required></div></div>
-          <div class="field"><label for="session-course">Course (optional)</label><input id="session-course" maxlength="48" placeholder="e.g. Biology"></div>
-          <div class="field"><label for="session-tags">Categories or tags (optional)</label><input id="session-tags" maxlength="300" placeholder="e.g. Exam prep, Reading" aria-describedby="session-tags-help"><p id="session-tags-help" class="field-help">Add your own labels, separated by commas. Up to 8 labels, 32 characters each.</p></div>
-          <div class="field"><label for="session-notes">Notes (optional)</label><textarea id="session-notes" rows="2" maxlength="1000" placeholder="What will you focus on?"></textarea></div>
-          <div class="form-actions"><button id="session-cancel" class="button" type="button" hidden>Cancel</button><button id="session-save" class="button primary" type="submit">Add study session</button></div>
-        </form>
-        <div class="session-toolbar" role="search" aria-label="Search and filter study sessions">
-          <div class="field"><label for="session-search">Search sessions</label><input id="session-search" type="search" placeholder="Title, notes, or tag"></div>
-          <div class="field"><label for="session-tag-filter">Filter by category/tag</label><select id="session-tag-filter"><option value="">All tags</option></select></div>
-          <button id="session-clear-filters" class="button small" type="button" hidden>Clear filters</button>
-        </div>
-        <p id="session-summary" class="session-summary muted" role="status" aria-live="polite"></p>
-        <div id="session-list" class="schedule-days"></div>
-      </section>
-
-      <!-- My schedule -->
-      <section id="schedule-section" class="section" aria-labelledby="schedule-heading">
-        <div class="section-heading">
-          <div><h2 id="schedule-heading">My schedule</h2><p>Weekly and one-off plans, grouped by day.</p></div>
-        </div>
-        <div class="schedule-form-wrap">
-          <h3 id="schedule-form-heading">Add a schedule block</h3>
-          <form id="schedule-form">
-            <input id="schedule-id" type="hidden">
-            <div class="field"><label for="schedule-title">Title</label><input id="schedule-title" maxlength="100" placeholder="e.g. Lecture: Databases" required></div>
-            <div class="field"><label for="schedule-course">Course (optional)</label><input id="schedule-course" maxlength="48" placeholder="e.g. Databases"></div>
-            <div class="field"><label for="schedule-type">Repeats</label><select id="schedule-type"><option value="weekly">Weekly</option><option value="once">One-off date</option></select></div>
-            <div id="schedule-days-field" class="field">
-              <span class="field-label">Days of the week</span>
-              <div class="weekday-picker">
-                <label><input type="checkbox" name="schedule-day" value="1"> Mon</label>
-                <label><input type="checkbox" name="schedule-day" value="2"> Tue</label>
-                <label><input type="checkbox" name="schedule-day" value="3"> Wed</label>
-                <label><input type="checkbox" name="schedule-day" value="4"> Thu</label>
-                <label><input type="checkbox" name="schedule-day" value="5"> Fri</label>
-                <label><input type="checkbox" name="schedule-day" value="6"> Sat</label>
-                <label><input type="checkbox" name="schedule-day" value="0"> Sun</label>
-              </div>
-            </div>
-            <div id="schedule-date-field" class="field" hidden><label for="schedule-date">Date</label><input id="schedule-date" type="date"></div>
-            <div class="form-grid">
-              <div class="field"><label for="schedule-start">Start time</label><input id="schedule-start" type="time" value="09:00" required></div>
-              <div class="field"><label for="schedule-end">End time</label><input id="schedule-end" type="time" value="10:00" required></div>
-            </div>
-            <div class="field"><label for="schedule-lead">Remind me before (minutes)</label><input id="schedule-lead" type="number" min="0" max="1440" value="10" required></div>
-            <div class="form-actions"><button id="schedule-cancel" class="button" type="button" hidden>Cancel</button><button id="schedule-save" class="button primary" type="submit">Add to schedule</button></div>
-          </form>
-        </div>
-        <div class="import-box">
-          <h3>Import a schedule document</h3>
-          <p class="import-help">Choose a Word document (.docx) or a text-based PDF. Your file is read on this device only; scanned-image OCR is not included.</p>
-          <input id="schedule-file" type="file" accept=".docx,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple hidden>
-          <div class="form-actions">
-            <span id="schedule-import-status" class="muted" role="status" aria-live="polite"></span>
-            <button id="choose-schedule-file" class="button" type="button">Choose Word or PDF</button>
-          </div>
-          <div id="schedule-import-review" hidden>
-            <div class="field" style="margin-top:12px">
-              <label for="schedule-import-text">Review or correct the extracted text</label>
-              <textarea id="schedule-import-text" spellcheck="false"></textarea>
-            </div>
-            <p class="import-help">For best results, put each class on a separate line. The importer recognizes lines such as <strong>Monday | Lecture: Databases | 09:00 | 10:30 | 10</strong> or <strong>2026-10-13 | Study group | 14:00-15:00</strong>. A trailing number is reminder minutes.</p>
-            <div class="form-actions"><button id="parse-schedule-text" class="button" type="button">Find schedule blocks</button></div>
-            <div id="schedule-import-preview" class="import-preview"></div>
-            <div class="form-actions"><button id="add-imported-schedule" class="button primary" type="button" disabled>Add found blocks to my schedule</button></div>
-          </div>
-        </div>
-        <div id="schedule-days" class="schedule-days"></div>
-      </section>
-
-      <!-- Reminders -->
-      <section class="section" aria-labelledby="reminders-heading">
-        <div class="section-heading">
-          <div><h2 id="reminders-heading">Reminders</h2><p id="reminder-help">Schedule reminders and target check-ins for today.</p></div>
-          <button id="notification-button" class="button small" type="button" hidden>Enable notifications</button>
-        </div>
-        <div id="reminder-list" class="reminder-list"></div>
-      </section>
-
-
-      <!-- Manage targets -->
-      <section class="section" aria-labelledby="manage-heading">
-        <div class="section-heading">
-          <div><h2 id="manage-heading">Manage targets</h2><p>Add, update, or remove a daily target.</p></div>
-        </div>
-        <div class="target-form-wrap">
-          <h3 id="target-form-heading">Add a daily target</h3>
-          <form id="target-form">
-            <input id="target-id" type="hidden">
-            <div class="field"><label for="target-name">Target name</label><input id="target-name" maxlength="80" placeholder="e.g. Read a biology chapter" required></div>
-            <div class="field"><label for="target-course">Course (optional)</label><input id="target-course" maxlength="48" placeholder="e.g. Biology"></div>
-            <div class="form-grid">
-              <div class="field"><label for="target-goal">Daily goal</label><input id="target-goal" type="number" min="1" max="1000000" step="1" value="8" required></div>
-              <div class="field"><label for="target-unit">Unit</label><input id="target-unit" maxlength="24" value="times" placeholder="glasses"></div>
-            </div>
-            <div class="field"><label for="target-reminders">Reminder times (optional)</label><input id="target-reminders" placeholder="09:00, 15:00"></div>
-            <div class="form-actions"><button id="target-cancel" class="button" type="button" hidden>Cancel</button><button id="target-save" class="button primary" type="submit">Add target</button></div>
-          </form>
-        </div>
-        <div id="manage-list" class="manage-list"></div>
-      </section>
-
-      <!-- Settings and backup -->
-      <section class="section" aria-labelledby="settings-heading">
-        <div class="section-heading">
-          <div><h2 id="settings-heading">Settings</h2><p>Personalize your planner and protect your data.</p></div>
-        </div>
-        <form id="settings-form">
-          <div class="settings-grid">
-            <div class="field"><label for="setting-name">Your name</label><input id="setting-name" maxlength="50" placeholder="Your name"></div>
-            <div class="field"><label for="setting-theme">Theme</label><select id="setting-theme"><option value="light">Light</option><option value="dark">Dark</option><option value="custom">Custom</option></select></div>
-            <div id="custom-colors" class="form-grid" hidden>
-              <div class="field"><label for="setting-accent">Accent color</label><input id="setting-accent" type="color" value="#52745a"></div>
-              <div class="field"><label for="setting-background">Background color</label><input id="setting-background" type="color" value="#f4f6f2"></div>
-            </div>
-            <div class="field"><label for="setting-font">Font size</label><select id="setting-font"><option value="small">Small</option><option value="medium">Medium</option><option value="large">Large</option></select></div>
-            <div class="field"><label for="setting-week-start">Week starts on</label><select id="setting-week-start"><option value="1">Monday</option><option value="0">Sunday</option></select></div>
-            <div class="field"><label for="setting-bedtime">Bedtime prompt time</label><input id="setting-bedtime" type="time" value="21:30"></div>
-          </div>
-          <p class="muted">The bedtime card asks you to review or set tomorrow's target plan. It appears once after this time until you save or snooze it.</p>
-          <div class="form-actions"><button class="button primary" type="submit">Save settings</button></div>
-        </form>
-        <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
-        <h3 id="data-storage-heading">Your data is saved on this device</h3>
-        <p id="data-storage-description" class="muted">Export a backup to move it to another browser or device.</p>
-        <div class="backup-actions">
-          <button id="export-button" class="button" type="button">Export JSON backup</button>
-          <button id="import-button" class="button" type="button">Import JSON backup</button>
-          <input id="import-file" type="file" accept=".json,application/json">
-        </div>
-
-        <div class="section" style="margin-top:14px;box-shadow:none">
-          <h3>Use StudyTrack on this device</h3>
-          <p id="pwa-status" class="muted" role="status" aria-live="polite">Checking app installation and offline support…</p>
-          <button id="pwa-install-button" class="button" type="button" hidden>Install StudyTrack</button>
-          <p class="muted">Each device keeps its own planner and file library. To open it on your phone over home Wi-Fi, close the laptop-only launcher and run <strong>Run on Wi-Fi for phone.bat</strong>, then visit the phone address it prints. Keep the laptop and Wi-Fi on while using that local address.</p>
-          <p class="muted">On iPhone, open the address in Safari and use Share → Add to Home Screen. On Android, use the browser menu to install or add it to the Home screen. A local Wi-Fi address is not HTTPS, so offline installation may be limited; full PWA offline caching needs HTTPS or localhost.</p>
-        </div>
-
-        <div class="section" style="margin-top:14px;box-shadow:none">
-          <h3>Local file storage</h3>
-          <p id="file-storage-copy" class="muted">File contents and file metadata stay on this device, in account-scoped IndexedDB. They are never sent to a server.</p>
-          <div class="storage-meter" aria-hidden="true"><span id="file-storage-meter" style="width:0%"></span></div>
-          <p id="file-storage-usage" class="muted" role="status" aria-live="polite">Checking storage…</p>
-        </div>
-      </section>
-    </main>
-    <p class="footer">Your planner syncs when configured. Uploaded file contents and file metadata stay in account-scoped IndexedDB on this device and are never uploaded.</p>
-  </div>
-
-
-  <!-- PREVIEW: sandboxed document viewer and safe text display -->
-  <div id="file-preview-backdrop" class="file-dialog" hidden>
-    <section class="file-dialog-card" role="dialog" aria-modal="true" aria-labelledby="file-preview-title">
-      <div class="file-dialog-head"><div><p class="eyebrow">Private · on this device</p><h2 id="file-preview-title">File preview</h2></div><button id="file-preview-close" class="icon-button" type="button" aria-label="Close preview">Close</button></div>
-      <p id="file-preview-meta" class="muted"></p>
-      <div id="file-preview-layout" class="preview-layout">
-        <div id="file-preview-stage" class="preview-stage"></div>
-        <div id="visual-schedule-entry" hidden>
-          <p class="import-help">Images and PDFs are not read automatically for schedules. Type or paste the timetable details here.</p>
-          <label class="field"><span>Timetable text</span><textarea id="visual-schedule-text" rows="7" placeholder="Monday | Lecture: Biology | 09:00 | 10:00"></textarea></label>
-          <button id="send-visual-schedule" class="button primary" type="button">Review schedule blocks</button>
-        </div>
-      </div>
-      <div class="preview-tools"><button id="file-download-button" class="button" type="button">Download</button><button id="file-zoom-button" class="button" type="button" hidden>Zoom in</button><button id="file-schedule-button" class="button" type="button" hidden>Create schedule from this file</button><button id="file-ocr-button" class="button" type="button" hidden>Read text from image (optional)</button><button id="pdf-text-button" class="button" type="button" hidden>Read text layer (optional)</button></div>
-      <p id="preview-tool-status" class="muted" role="status" aria-live="polite"></p>
-      <div id="ocr-result-wrap" hidden>
-        <label class="field" for="ocr-result-text">Extracted text — review and edit before use</label><textarea id="ocr-result-text" rows="8"></textarea>
-        <button id="send-ocr-schedule" class="button primary" type="button">Send to schedule import preview</button>
-      </div>
-      <p class="local-only-note">Files are treated as data only. Nothing in a file is executed or uploaded.</p>
-    </section>
-  </div>
-
-  <!-- LINKS: attach local files to a schedule block or a study session -->
-  <div id="attach-backdrop" class="file-dialog" hidden>
-    <section class="file-dialog-card" style="max-width:560px" role="dialog" aria-modal="true" aria-labelledby="attach-title">
-      <div class="file-dialog-head"><div><p class="eyebrow">Local file links</p><h2 id="attach-title">Attach files</h2></div><button id="attach-close" class="icon-button" type="button" aria-label="Close file picker">Close</button></div>
-      <div id="attach-list" class="attach-list"></div><p id="attach-empty" class="empty" hidden>No files yet. Upload a file in My Files first.</p>
-      <div class="form-actions"><button id="attach-save" class="button primary" type="button">Save file links</button></div>
-    </section>
-  </div>
-
-  <!-- Bedtime plan dialog -->
-  <div id="bedtime-backdrop" class="bedtime-backdrop" hidden>
-    <section class="bedtime-card" role="dialog" aria-modal="true" aria-labelledby="bedtime-title">
-      <p class="eyebrow">A little planning goes a long way</p>
-      <h2 id="bedtime-title">Before you sleep</h2>
-      <p class="muted">Set or review your daily targets for tomorrow. Your current goals stay unchanged today.</p>
-      <div id="bedtime-targets"></div>
-      <div class="bedtime-add">
-        <h3>Add a target for tomorrow</h3>
-        <div class="form-grid">
-          <div class="field"><label for="bedtime-new-name">Name</label><input id="bedtime-new-name" maxlength="80" placeholder="e.g. Read"></div>
-          <div class="field"><label for="bedtime-new-goal">Goal</label><input id="bedtime-new-goal" type="number" min="1" max="1000000" step="1" value="1"></div>
-        </div>
-        <div class="form-grid">
-          <div class="field"><label for="bedtime-new-unit">Unit</label><input id="bedtime-new-unit" maxlength="24" value="times"></div>
-          <div class="field"><label for="bedtime-new-reminders">Reminder times (optional)</label><input id="bedtime-new-reminders" placeholder="09:00, 15:00"></div>
-        </div>
-        <button id="bedtime-add-button" class="button small" type="button">Add to tomorrow</button>
-      </div>
-      <div class="form-actions">
-        <button id="bedtime-snooze" class="button" type="button">Remind me again in 15 minutes</button>
-        <button id="bedtime-save" class="button primary" type="button">Save and set tomorrow's plan</button>
-      </div>
-    </section>
-  </div>
-
-  <script type="module">
-    window.pdfjsReady = import('./vendor/pdf.min.mjs').then(pdfjs => {
-      pdfjs.GlobalWorkerOptions.workerSrc = new URL('./vendor/pdf.worker.min.mjs', window.location.href).href;
-      window.pdfjsLib = pdfjs;
-    }).catch(error => {
-      window.pdfjsLoadError = error;
-    });
-  </script>
-  <script src="./vendor/mammoth.browser.min.js"></script>
-  <script src="./supabase-config.js"></script>
-  <script type="module">
-    const config = window.DAILY_TARGETS_SUPABASE || {};
-    if (!config.url || !config.anonKey) {
-      window.dispatchEvent(new CustomEvent('daily-targets-supabase-ready', {
-        detail: { error: 'Supabase is not configured yet.' }
-      }));
-    } else {
-      import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm')
-        .then(({ createClient }) => {
-          window.dailyTargetsSupabase = createClient(config.url, config.anonKey);
-          window.dispatchEvent(new CustomEvent('daily-targets-supabase-ready'));
-        })
-        .catch(error => {
-          window.dispatchEvent(new CustomEvent('daily-targets-supabase-ready', {
-            detail: { error: `Could not load Supabase: ${error.message}` }
-          }));
-        });
-    }
-  </script>
-  <script>
-    'use strict';
-
-    // Storage, dates, and small helpers
-    const STORAGE_KEY = 'dailyTargets.v1';
-    const LEGACY_OWNER_KEY = `${STORAGE_KEY}.owner`;
-    const $ = selector => document.querySelector(selector);
-    function initializePlannerMenus() {
-      const menu = $('.main-nav');
-      const main = $('#app-shell > main');
-      const groups = [
-        { id: 'today', selectors: ['#targets-section', '#progress-section', 'section[aria-labelledby="reminders-heading"]', 'section[aria-labelledby="manage-heading"]'] },
-        { id: 'schedule', selectors: ['#schedule-section'] },
-        { id: 'sessions', selectors: ['#sessions-section'] },
-        { id: 'files', selectors: ['#files-section'] },
-        { id: 'settings', selectors: ['section[aria-labelledby="settings-heading"]'] }
-      ];
-      const panels = groups.map(group => {
-        const panel = document.createElement('div');
-        panel.id = `menu-panel-${group.id}`;
-        panel.className = 'menu-panel';
-        panel.dataset.menu = group.id;
-        panel.setAttribute('role', 'tabpanel');
-        panel.setAttribute('aria-labelledby', `menu-tab-${group.id}`);
-        panel.tabIndex = 0;
-        group.selectors.forEach(selector => {
-          const section = main.querySelector(selector);
-          if (!section) throw new Error(`Planner menu content is missing: ${selector}`);
-          panel.append(section);
-        });
-        main.append(panel);
-        return panel;
-      });
-      const tabs = Array.from(menu.querySelectorAll('[role="tab"]'));
-      function activateMenu(id, options = {}) {
-        if (!groups.some(group => group.id === id)) return;
-        panels.forEach(panel => { panel.hidden = panel.dataset.menu !== id; });
-        tabs.forEach(tab => {
-          const selected = tab.dataset.menu === id;
-          tab.setAttribute('aria-selected', String(selected));
-          tab.tabIndex = selected ? 0 : -1;
-        });
-        try { localStorage.setItem(`${STORAGE_KEY}.menu`, id); } catch (_) { /* menu still works if storage is unavailable */ }
-        if (options.focus) $(`#menu-tab-${id}`).focus();
-        if (options.scroll) panels.find(panel => panel.dataset.menu === id).scrollIntoView({ block: 'start', behavior: 'smooth' });
-      }
-      tabs.forEach(tab => tab.addEventListener('click', () => activateMenu(tab.dataset.menu, { scroll: true })));
-      menu.addEventListener('keydown', event => {
-        const index = tabs.indexOf(event.target);
-        if (index < 0) return;
-        let next = index;
-        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % tabs.length;
-        else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + tabs.length) % tabs.length;
-        else if (event.key === 'Home') next = 0;
-        else if (event.key === 'End') next = tabs.length - 1;
-        else return;
-        event.preventDefault();
-        activateMenu(tabs[next].dataset.menu, { focus: true, scroll: true });
-      });
-      let savedMenu = 'today';
-      try {
-        const stored = localStorage.getItem(`${STORAGE_KEY}.menu`);
-        if (groups.some(group => group.id === stored)) savedMenu = stored;
-      } catch (_) { /* default to Today */ }
-      activateMenu(savedMenu);
-    }
-    initializePlannerMenus();
-    const pad = value => String(value).padStart(2, '0');
-    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[char]);
-    const isRecord = value => value !== null && typeof value === 'object' && !Array.isArray(value);
-    const validTime = value => /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
-    function normalizeSessionTags(value) {
-      const source = Array.isArray(value) ? value : typeof value === 'string' ? value.split(',') : [];
-      const seen = new Set();
-      const tags = [];
-      source.forEach(item => {
-        if (typeof item !== 'string') return;
-        const tag = item.trim().replace(/\s+/g, ' ').slice(0, 32);
-        const key = tag.toLocaleLowerCase();
-        if (tag && !seen.has(key) && tags.length < 8) { seen.add(key); tags.push(tag); }
-      });
-      return tags;
-    }
-    function parseSessionTagInput(value) {
-      const seen = new Set();
-      const tags = [];
-      for (const entry of String(value || '').split(',')) {
-        const tag = entry.trim().replace(/\s+/g, ' ');
-        if (!tag) continue;
-        if (tag.length > 32) return { error: 'Keep each category or tag to 32 characters or fewer.' };
-        const key = tag.toLocaleLowerCase();
-        if (!seen.has(key)) { seen.add(key); tags.push(tag); }
-        if (tags.length > 8) return { error: 'Use no more than 8 categories or tags per session.' };
-      }
-      return { tags };
-    }
-    const dayKey = (date = new Date()) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-    const makeId = () => crypto.randomUUID ? crypto.randomUUID() : `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 10)}`;
-    const dateAtTime = (date, time) => {
-      const result = new Date(date.getFullYear(), date.getMonth(), date.getDate(), Number(time.slice(0, 2)), Number(time.slice(3, 5)), 0, 0);
-      return result;
-    };
-    const addDays = (date, count) => {
-      const next = new Date(date);
-      next.setDate(next.getDate() + count);
-      return next;
-    };
-    const startOfWeek = (date, firstDay) => {
-      const start = new Date(date);
-      start.setHours(12, 0, 0, 0);
-      start.setDate(start.getDate() - ((start.getDay() - firstDay + 7) % 7));
-      return start;
-    };
-    const defaultSettings = () => ({
-      name: '', theme: 'light', accent: '#52745a', background: '#f4f6f2',
-      fontSize: 'medium', weekStarts: 1, bedtime: '21:30'
-    });
-    let state = { activities: [], logs: {}, fired: {}, schedule: [], settings: defaultSettings(), plans: {}, bedtime: {}, sessions: [], checks: {} };
-    let bedtimeDraft = [];
-    let bedtimeNewTargets = [];
-    let bedtimePromptDate = '';
-    let lastDay = dayKey();
-    let supabaseClient = null;
-    let activeUser = null;
-    let cloudPersistenceReady = false;
-    let cloudSaveQueue = Promise.resolve();
-    let authMode = 'sign-in';
-    let appStartedForUser = '';
-
-    function showNotice(message, error = false) {
-      const notice = $('#notice');
-      notice.textContent = message;
-      notice.classList.toggle('error', error);
-      notice.hidden = !message;
-    }
-
-    function storageRead() {
-      try { return localStorage.getItem(activeUser ? `${STORAGE_KEY}:${activeUser.id}` : STORAGE_KEY); }
-      catch (error) {
-        showNotice(`Could not read saved data: ${error.message}`, true);
-        return null;
-      }
-    }
-
-    function storageWrite() {
-      try {
-        const serialized = JSON.stringify(state);
-        localStorage.setItem(activeUser ? `${STORAGE_KEY}:${activeUser.id}` : STORAGE_KEY, serialized);
-        if (activeUser && cloudPersistenceReady) {
-          const ownerId = activeUser.id;
-          const snapshot = JSON.parse(serialized);
-          cloudSaveQueue = cloudSaveQueue.then(async () => {
-            if (!supabaseClient || !activeUser || activeUser.id !== ownerId) return;
-            const { error } = await supabaseClient
-              .from('daily_target_data')
-              .upsert({ user_id: ownerId, data: snapshot, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
-            if (error) throw error;
-          }).catch(error => {
-            if (activeUser && activeUser.id === ownerId) {
-              showNotice(`Saved on this device, but cloud sync failed: ${error.message}`, true);
-            }
-          });
-        }
-        return true;
-      } catch (error) {
-        showNotice(`Could not save your changes: ${error.message}. Check your browser storage settings.`, true);
-        return false;
-      }
-    }
-
-    function validState(value) {
-      if (!isRecord(value) || !Array.isArray(value.activities) || !isRecord(value.logs)) return false;
-      if (new Set(value.activities.map(item => item && item.id)).size !== value.activities.length ||
-          !value.activities.every(item => item && typeof item.id === 'string' && typeof item.name === 'string' &&
-          Number.isSafeInteger(item.goal) && item.goal > 0 && typeof item.unit === 'string' && (item.course === undefined || typeof item.course === 'string'))) return false;
-      if (!Object.values(value.logs).every(day => isRecord(day) &&
-          Object.values(day).every(count => Number.isSafeInteger(count) && count >= 0))) return false;
-      if (value.schedule !== undefined && (!Array.isArray(value.schedule) || !value.schedule.every(item =>
-          item && typeof item.id === 'string' && typeof item.title === 'string' && validTime(item.start) &&
-          validTime(item.end) && item.start < item.end && Number.isInteger(item.lead) && item.lead >= 0 && (item.course === undefined || typeof item.course === 'string') &&
-          (item.date ? /^\d{4}-\d{2}-\d{2}$/.test(item.date) : Array.isArray(item.days) && item.days.every(day => Number.isInteger(day) && day >= 0 && day <= 6))
-      ))) return false;
-      if (value.settings !== undefined && (!isRecord(value.settings) ||
-          (value.settings.name !== undefined && typeof value.settings.name !== 'string') ||
-          (value.settings.theme !== undefined && !['light', 'dark', 'custom'].includes(value.settings.theme)) ||
-          (value.settings.accent !== undefined && !/^#[0-9a-f]{6}$/i.test(value.settings.accent)) ||
-          (value.settings.background !== undefined && !/^#[0-9a-f]{6}$/i.test(value.settings.background)) ||
-          (value.settings.fontSize !== undefined && !['small', 'medium', 'large'].includes(value.settings.fontSize)) ||
-          (value.settings.weekStarts !== undefined && ![0, 1].includes(value.settings.weekStarts)) ||
-          (value.settings.bedtime !== undefined && !validTime(value.settings.bedtime)))) return false;
-      if (value.plans !== undefined && (!isRecord(value.plans) || !Object.values(value.plans).every(plan =>
-          isRecord(plan) && Object.values(plan).every(goal => Number.isSafeInteger(goal) && goal > 0)))) return false;
-      if (value.fired !== undefined && !isRecord(value.fired)) return false;
-      if (value.checks !== undefined && (!isRecord(value.checks) || !Object.values(value.checks).every(checked => typeof checked === 'boolean'))) return false;
-      if (value.bedtime !== undefined && !isRecord(value.bedtime)) return false;
-      if (value.sessions !== undefined && (!Array.isArray(value.sessions) || !value.sessions.every(item => item && typeof item.id === 'string' && typeof item.title === 'string' && typeof item.date === 'string' && Number.isFinite(Date.parse(item.date)) && (item.notes === undefined || typeof item.notes === 'string') && (item.course === undefined || typeof item.course === 'string') && (item.tags === undefined || Array.isArray(item.tags) && item.tags.every(tag => typeof tag === 'string'))))) return false;
-      return true;
-    }
-
-    function normalizeFired(savedFired) {
-      const fired = {};
-      Object.entries(isRecord(savedFired) ? savedFired : {}).forEach(([key, value]) => {
-        const oldKey = key.match(/^(\d{4}-\d{2}-\d{2})\|/);
-        if (oldKey) {
-          if (!isRecord(fired[oldKey[1]])) fired[oldKey[1]] = {};
-          const oldReminder = key.split('|');
-          const migratedKey = oldReminder.length === 3
-            ? `${oldReminder[0]}|target|${oldReminder[1]}|${oldReminder[2]}`
-            : key;
-          fired[oldKey[1]][migratedKey] = Boolean(value);
-        } else if (isRecord(value)) {
-          fired[key] = value;
-        }
-      });
-      return fired;
-    }
-
-    function loadState() {
-      const raw = storageRead();
-      if (!raw) return;
-      try {
-        const saved = JSON.parse(raw);
-        if (!validState(saved)) throw new Error('The saved data format is not valid.');
-        state = {
-          activities: saved.activities.map(item => ({
-            id: item.id, name: item.name, goal: item.goal, unit: item.unit || 'times', course: typeof item.course === 'string' ? item.course.slice(0, 48) : '',
-            reminders: Array.isArray(item.reminders) ? item.reminders.filter(validTime) : [],
-            activeFrom: /^\d{4}-\d{2}-\d{2}$/.test(item.activeFrom || '') ? item.activeFrom : ''
-          })),
-          logs: saved.logs,
-          fired: normalizeFired(saved.fired),
-          schedule: Array.isArray(saved.schedule) ? saved.schedule : [],
-          settings: { ...defaultSettings(), ...(isRecord(saved.settings) ? saved.settings : {}) },
-          plans: isRecord(saved.plans) ? saved.plans : {},
-          bedtime: isRecord(saved.bedtime) ? saved.bedtime : {},
-          sessions: Array.isArray(saved.sessions) ? saved.sessions.filter(isRecord).map(item => ({ ...item, course: typeof item.course === 'string' ? item.course.slice(0, 48) : '', tags: normalizeSessionTags(item.tags) })) : [],
-          checks: isRecord(saved.checks) ? saved.checks : {}
-        };
-      } catch (error) {
-        showNotice(`Could not load saved data: ${error.message}. Import a backup to restore it.`, true);
-      }
-    }
-
-    function activitiesFor(date = dayKey()) {
-      return state.activities.filter(item => !item.activeFrom || item.activeFrom <= date);
-    }
-
-    function goalFor(activity, date = dayKey()) {
-      const goal = state.plans[date] && state.plans[date][activity.id];
-      return Number.isSafeInteger(goal) && goal > 0 ? goal : activity.goal;
-    }
-
-    function countFor(id, date = dayKey()) {
-      const count = state.logs[date] && state.logs[date][id];
-      return Number.isSafeInteger(count) && count > 0 ? count : 0;
-    }
-
-    function greeting() {
-      const hour = new Date().getHours();
-      const salutation = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-      const name = state.settings.name.trim();
-      return name ? `${salutation}, ${name}` : 'Plan with intention. Finish with momentum.';
-    }
-
-    function applySettings() {
-      const settings = state.settings;
-      document.documentElement.dataset.theme = settings.theme === 'dark' ? 'dark' : 'light';
-      const fontSizes = { small: '14px', medium: '16px', large: '18px' };
-      document.documentElement.style.setProperty('--font-size', fontSizes[settings.fontSize] || fontSizes.medium);
-      if (settings.theme === 'custom') {
-        document.documentElement.style.setProperty('--accent', settings.accent);
-        document.documentElement.style.setProperty('--accent-strong', settings.accent);
-        document.documentElement.style.setProperty('--accent-soft', `${settings.accent}26`);
-        document.documentElement.style.setProperty('--page', settings.background);
-        document.documentElement.style.setProperty('--surface', `color-mix(in srgb, ${settings.background} 94%, white)`);
-        document.documentElement.style.setProperty('--surface-soft', `color-mix(in srgb, ${settings.background} 88%, white)`);
-      } else {
-        ['--accent', '--accent-strong', '--accent-soft', '--page', '--surface', '--surface-soft'].forEach(name =>
-          document.documentElement.style.removeProperty(name));
-      }
-      document.querySelector('meta[name="theme-color"]').content = settings.theme === 'custom'
-        ? settings.background
-        : settings.theme === 'dark' ? '#1e2621' : '#eee9dc';
-      $('#header-greeting').textContent = greeting();
-      $('#header-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-      $('#today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-      $('#setting-name').value = settings.name;
-      $('#setting-theme').value = settings.theme;
-      $('#setting-accent').value = settings.accent;
-      $('#setting-background').value = settings.background;
-      $('#setting-font').value = settings.fontSize;
-      $('#setting-week-start').value = String(settings.weekStarts);
-      $('#setting-bedtime').value = validTime(settings.bedtime) ? settings.bedtime : '21:30';
-      $('#custom-colors').hidden = settings.theme !== 'custom';
-      $('#header-theme').textContent = settings.theme === 'dark' ? 'Light' : settings.theme === 'light' ? 'Dark' : 'Theme';
-      $('#header-theme').setAttribute('aria-label', settings.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-    }
-
-    // Today dashboard: date-scoped agenda plus weighted completion summaries.
-    const coursePalette = ['#e4572e', '#2878b8', '#8055a6', '#17877b', '#cb8b16', '#c44569', '#657b2d', '#515ca9'];
-    function courseColor(name) {
-      let hash = 2166136261;
-      for (const character of String(name || 'Personal').toLocaleLowerCase()) hash = Math.imul(hash ^ character.charCodeAt(0), 16777619);
-      return coursePalette[(hash >>> 0) % coursePalette.length];
-    }
-    function courseName(item) {
-      return String(item.course || (Array.isArray(item.tags) ? item.tags[0] : '') || 'Personal').trim() || 'Personal';
-    }
-    function completionKey(date, kind, id) { return `${date}|${kind}|${id}`; }
-    function dayActivitiesFor(date = new Date()) {
-      const key = typeof date === 'string' ? date : dayKey(date);
-      const localDate = new Date(`${key}T12:00:00`);
-      const entries = [];
-      activitiesFor(key).forEach(item => {
-        const time = Array.isArray(item.reminders) && item.reminders.length ? [...item.reminders].sort()[0] : '';
-        const count = countFor(item.id, key), goal = goalFor(item, key);
-        entries.push({ kind: 'target', id: item.id, title: item.name, course: courseName(item), time, details: `${count} / ${goal} ${item.unit || 'times'}`, count, goal, done: count >= goal, progress: Math.min(1, count / goal), date: key });
-      });
-      state.schedule.filter(item => scheduleDaysFor(item, localDate)).forEach(item => {
-        const done = Boolean(state.checks && state.checks[completionKey(key, 'schedule', item.id)]);
-        entries.push({ kind: 'schedule', id: item.id, title: item.title, course: courseName(item), time: item.start, details: `${item.start}–${item.end}`, done, progress: done ? 1 : 0, date: key });
-      });
-      (Array.isArray(state.sessions) ? state.sessions : []).forEach(item => {
-        const date = new Date(item.date);
-        if (!Number.isFinite(date.getTime()) || dayKey(date) !== key) return;
-        const done = Boolean(state.checks && state.checks[completionKey(key, 'session', item.id)]);
-        entries.push({ kind: 'session', id: item.id, title: item.title, course: courseName(item), time: `${pad(date.getHours())}:${pad(date.getMinutes())}`, details: item.notes || 'Study session', done, progress: done ? 1 : 0, date: key });
-      });
-      return entries.sort((a, b) => (a.time || '99:99').localeCompare(b.time || '99:99') || a.title.localeCompare(b.title));
-    }
-    function dayProgress(date = new Date()) {
-      const items = dayActivitiesFor(date);
-      return { items, percent: items.length ? Math.round(items.reduce((sum, item) => sum + item.progress, 0) / items.length * 100) : 0 };
-    }
-    function currentWeekStreak(today = new Date()) {
-      const firstDay = Number(state.settings.weekStarts) === 0 ? 0 : 1;
-      const start = startOfWeek(today, firstDay); start.setHours(0, 0, 0, 0);
-      let cursor = new Date(today); cursor.setHours(12, 0, 0, 0);
-      if (dayProgress(cursor).percent < 100 || !dayProgress(cursor).items.length) cursor = addDays(cursor, -1);
-      let streak = 0;
-      while (cursor >= start && streak < 7) {
-        const result = dayProgress(cursor);
-        if (!result.items.length || result.percent < 100) break;
-        streak += 1; cursor = addDays(cursor, -1);
-      }
-      return streak;
-    }
-    function renderActivity(item) {
-      const color = courseColor(item.course);
-      const safeId = escapeHtml(item.id);
-      const safeTitle = escapeHtml(item.title);
-      const checkAction = item.kind === 'target' ? 'complete-target' : 'complete-planned';
-      const check = `<button class="activity-check${item.done ? ' checked' : ''}" type="button" role="checkbox" aria-checked="${item.done}" aria-label="${item.done ? 'Mark incomplete' : 'Mark complete'}: ${safeTitle}" data-action="${checkAction}" data-kind="${item.kind}" data-id="${safeId}" data-date="${item.date}">${item.done ? '✓' : ''}</button>`;
-      const targetControls = item.kind === 'target' ? `<div class="activity-stepper"><span>${escapeHtml(item.details)}</span><button type="button" data-action="adjust" data-id="${safeId}" data-delta="-1" aria-label="Decrease ${safeTitle}" ${item.count === 0 ? 'disabled' : ''}>−</button><button type="button" data-action="adjust" data-id="${safeId}" data-delta="1" aria-label="Increase ${safeTitle}">+</button></div>` : '';
-      const details = item.kind === 'target' ? 'Daily goal' : item.kind === 'schedule' ? 'Scheduled class or activity' : 'Study session';
-      return `<article class="activity-row${item.done ? ' is-complete' : ''}" style="--course-color:${color}">
-        <time class="activity-time" datetime="${item.time ? `${item.date}T${item.time}` : item.date}">${item.time ? escapeHtml(new Date(`${item.date}T${item.time}:00`).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })) : 'ANYTIME'}</time>
-        ${check}<div class="activity-copy"><div class="activity-title-line"><strong>${safeTitle}</strong><span class="course-badge">${escapeHtml(item.course)}</span></div><p>${escapeHtml(item.kind === 'target' ? 'Daily goal' : item.details || details)}</p></div>${targetControls}
-      </article>`;
-    }
-    function renderTargets() {
-      const now = new Date(), key = dayKey(now), result = dayProgress(now), items = result.items;
-      const percent = result.percent, completed = items.filter(item => item.done).length;
-      $('#summary').textContent = items.length ? `${completed} of ${items.length} activities complete · sorted by time.` : 'Your tasks and study sessions for today, in time order.';
-      $('#target-count').textContent = `${items.length} ${items.length === 1 ? 'activity' : 'activities'}`;
-      $('#score-value').textContent = `${percent}%`;
-      $('#progress-ring').style.setProperty('--progress-angle', `${percent * 3.6}deg`);
-      $('#progress-ring').setAttribute('aria-valuenow', String(percent));
-      $('#streak-value').textContent = String(currentWeekStreak(now));
-      $('#today-list').innerHTML = items.map(renderActivity).join('') || `<div class="today-empty"><span class="empty-spark">✦</span><strong>Your day is open.</strong><p>Add a daily task, a class on the schedule, or a focused study session and it will appear here.</p><div><button class="button" type="button" data-action="open-menu" data-menu="schedule">Plan a class</button><button class="button primary" type="button" data-action="open-menu" data-menu="sessions">Add a study session</button></div></div>`;
-
-      const courses = new Map();
-      items.forEach(item => {
-        const label = item.course || 'Personal';
-        const entry = courses.get(label) || { label, total: 0, progress: 0, completed: 0 };
-        entry.total += 1; entry.progress += item.progress; entry.completed += item.done ? 1 : 0; courses.set(label, entry);
-      });
-      $('#course-progress-list').innerHTML = [...courses.values()].sort((a,b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' })).map(course => {
-        const coursePercent = Math.round(course.progress / course.total * 100);
-        return `<div class="course-progress-row" style="--course-color:${courseColor(course.label)}"><div class="course-progress-label"><span class="course-dot" aria-hidden="true"></span><strong>${escapeHtml(course.label)}</strong><span>${course.completed}/${course.total}</span></div><div class="course-progress-track" role="progressbar" aria-label="${escapeHtml(course.label)} progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${coursePercent}"><span style="width:${coursePercent}%"></span></div></div>`;
-      }).join('') || '<p class="course-empty">Your course breakdown will appear as you add courses to tasks, classes, or sessions.</p>';
-
-      const days = [];
-      for (let offset = 6; offset >= 0; offset -= 1) {
-        const day = addDays(now, -offset); day.setHours(12, 0, 0, 0);
-        const daily = dayProgress(day), dayPercent = daily.percent;
-        days.push(`<div class="week-day${dayKey(day) === key ? ' today' : ''}" title="${escapeHtml(day.toLocaleDateString())}: ${dayPercent}% complete"><span>${escapeHtml(day.toLocaleDateString(undefined, { weekday: 'short' }))}</span><div class="week-bar" aria-hidden="true"><span style="height:${dayPercent}%"></span></div><strong>${dayPercent}%</strong></div>`);
-      }
-      $('#week').innerHTML = days.join('');
-      $('#manage-list').innerHTML = state.activities.map(item => `
-        <div class="manage-row target">
-          <div><div class="target-name">${escapeHtml(item.name)}</div><div class="target-meta">${item.goal} ${escapeHtml(item.unit)} per day${item.course ? ` · ${escapeHtml(item.course)}` : ''}${item.activeFrom ? ` · starts ${escapeHtml(item.activeFrom)}` : ''}</div></div>
-          <div class="schedule-actions"><button class="button small" type="button" data-action="edit-target" data-id="${escapeHtml(item.id)}">Edit</button><button class="button small danger" type="button" data-action="delete-target" data-id="${escapeHtml(item.id)}">Delete</button></div>
-        </div>`).join('') || '<div class="empty">Your targets will appear here.</div>';
-    }
-
-    function resetTargetForm() {
-      $('#target-form').reset();
-      $('#target-id').value = '';
-      $('#target-goal').value = '8';
-      $('#target-unit').value = 'times';
-      $('#target-form-heading').textContent = 'Add a daily target';
-      $('#target-save').textContent = 'Add target';
-      $('#target-cancel').hidden = true;
-    }
-
-    function parseReminders(raw) {
-      const values = raw.trim() ? raw.split(',').map(value => value.trim()) : [];
-      if (values.some(value => !validTime(value)) || new Set(values).size !== values.length) return null;
-      return values;
-    }
-
-    $('#target-form').addEventListener('submit', event => {
-      event.preventDefault();
-      const id = $('#target-id').value;
-      const name = $('#target-name').value.trim();
-      const course = $('#target-course').value.trim().slice(0, 48);
-      const goal = Number($('#target-goal').value);
-      const unit = $('#target-unit').value.trim() || 'times';
-      const reminders = parseReminders($('#target-reminders').value);
-      if (!name || !Number.isSafeInteger(goal) || goal < 1 || goal > 1000000) return showNotice('Enter a name and a whole-number goal from 1 to 1,000,000.', true);
-      if (reminders === null) return showNotice('Use unique reminder times in 24-hour HH:MM format.', true);
-      const existing = state.activities.find(item => item.id === id);
-      if (existing) Object.assign(existing, { name, goal, unit, reminders, course });
-      else state.activities.push({ id: makeId(), name, goal, unit, reminders, course, activeFrom: '' });
-      if (!storageWrite()) { renderAll(); return; }
-      showNotice('');
-      resetTargetForm();
-      renderAll();
-    });
-
-    $('#target-cancel').addEventListener('click', resetTargetForm);
-
-    // Weekly and one-off schedule blocks
-    function scheduleDaysFor(item, date) {
-      if (item.date) return item.date === dayKey(date);
-      return item.days.includes(date.getDay());
-    }
-
-    function occurrenceDates(item, start, count) {
-      const dates = [];
-      for (let offset = 0; offset < count; offset += 1) {
-        const date = addDays(start, offset);
-        if (scheduleDaysFor(item, date)) dates.push(date);
-      }
-      return dates;
-    }
-
-    function renderSchedule() {
-      const firstDay = Number(state.settings.weekStarts) === 0 ? 0 : 1;
-      const first = startOfWeek(new Date(), firstDay);
-      const groups = [];
-      for (let offset = 0; offset < 7; offset += 1) {
-        const date = addDays(first, offset);
-        const key = dayKey(date);
-        const items = state.schedule.filter(item => scheduleDaysFor(item, date)).sort((a, b) => a.start.localeCompare(b.start));
-        groups.push(`<div class="day-group">
-          <div class="day-title"><span>${escapeHtml(date.toLocaleDateString(undefined, { weekday: 'long' }))}${key === dayKey() ? ' · Today' : ''}</span><span>${escapeHtml(date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }))}</span></div>
-          ${items.length ? items.map(item => `<article class="schedule-item">
-            <div class="schedule-row"><div><div class="schedule-title">${escapeHtml(item.title)}</div>${item.course ? `<span class="course-badge" style="--course-color:${courseColor(item.course)}">${escapeHtml(item.course)}</span>` : ''}<p class="schedule-meta">${item.date ? 'One-off event' : `Weekly${item.days.length === 7 ? ' · every day' : ''}`} · Remind ${item.lead} min before and at start</p></div>
-              <div class="schedule-actions"><span class="schedule-time">${escapeHtml(item.start)}–${escapeHtml(item.end)}</span><button class="button small" type="button" data-action="attach-schedule" data-id="${escapeHtml(item.id)}">Attach files</button><button class="button small" type="button" data-action="edit-schedule" data-id="${escapeHtml(item.id)}">Edit</button><button class="button small danger" type="button" data-action="delete-schedule" data-id="${escapeHtml(item.id)}">Delete</button></div>
-            ${renderLinkedFileNames('schedule',item.id)}</div></article>`).join('') : '<p class="muted">Nothing scheduled.</p>'}
-        </div>`);
-      }
-      const weekKeys = new Set(Array.from({ length: 7 }, (_, offset) => dayKey(addDays(first, offset))));
-      const outsideWeek = state.schedule.filter(item => item.date && !weekKeys.has(item.date)).sort((a, b) => a.date.localeCompare(b.date) || a.start.localeCompare(b.start));
-      const otherDates = outsideWeek.length ? `<div class="day-group"><div class="day-title"><span>Other one-off dates</span></div>${outsideWeek.map(item => `<article class="schedule-item"><div class="schedule-row"><div><div class="schedule-title">${escapeHtml(item.title)}</div><p class="schedule-meta">${escapeHtml(new Date(`${item.date}T12:00:00`).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }))} · Remind ${item.lead} min before and at start</p></div><div class="schedule-actions"><span class="schedule-time">${escapeHtml(item.start)}–${escapeHtml(item.end)}</span><button class="button small" type="button" data-action="attach-schedule" data-id="${escapeHtml(item.id)}">Attach files</button><button class="button small" type="button" data-action="edit-schedule" data-id="${escapeHtml(item.id)}">Edit</button><button class="button small danger" type="button" data-action="delete-schedule" data-id="${escapeHtml(item.id)}">Delete</button></div>${renderLinkedFileNames('schedule',item.id)}</div></article>`).join('')}</div>` : '';
-      $('#schedule-days').innerHTML = groups.join('') + otherDates;
-    }
-
-    // Offline schedule-document reading and line parsing
-    const weekdayMap = {
-      mon: 1, monday: 1, tue: 2, tues: 2, tuesday: 2, wed: 3, wednesday: 3,
-      thu: 4, thur: 4, thurs: 4, thursday: 4, fri: 5, friday: 5,
-      sat: 6, saturday: 6, sun: 0, sunday: 0
-    };
-    let importedSchedule = [];
-
-    function readClock(hourText, minuteText, meridiem) {
-      let hour = Number(hourText);
-      const minute = Number(minuteText || 0);
-      if (minute > 59 || hour > (meridiem ? 12 : 23) || hour < (meridiem ? 1 : 0)) return null;
-      if (meridiem) {
-        const suffix = meridiem.toLowerCase();
-        hour = hour % 12 + (suffix === 'pm' ? 12 : 0);
-      }
-      if (hour > 23) return null;
-      return `${pad(hour)}:${pad(minute)}`;
-    }
-
-    function findTimeRange(text) {
-      const match = text.match(/\b(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\s*(?:-|–|—|\bto\b)\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i);
-      if (!match) return null;
-      const firstMeridiem = match[3] || match[6];
-      const start = readClock(match[1], match[2], firstMeridiem);
-      const end = readClock(match[4], match[5], match[6] || match[3]);
-      return start && end && start < end
-        ? { start, end, match: match[0], index: match.index }
-        : null;
-    }
-
-    function parseDayTokens(text) {
-      const found = [];
-      const matcher = /\b(mon(?:day)?|tues?(?:day)?|wed(?:nesday)?|thur(?:sday)?|thurs?(?:day)?|fri(?:day)?|sat(?:urday)?|sun(?:day)?)\b/gi;
-      let match;
-      while ((match = matcher.exec(text))) {
-        const key = match[1].toLowerCase();
-        const day = weekdayMap[key];
-        if (day !== undefined && !found.includes(day)) found.push(day);
-      }
-      return found;
-    }
-
-    function parseDateToken(text) {
-      const iso = text.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);
-      if (iso) {
-        const date = `${iso[1]}-${iso[2]}-${iso[3]}`;
-        return Number.isNaN(new Date(`${date}T12:00:00`).getTime()) ? null : { date, token: iso[0] };
-      }
-      const named = text.match(/\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2})(?:,?\s+(20\d{2}))?\b/i);
-      if (!named) return null;
-      const year = Number(named[3] || new Date().getFullYear());
-      const date = new Date(year, new Date(`${named[1]} 1, 2000`).getMonth(), Number(named[2]), 12);
-      if (date.getFullYear() !== year || date.getDate() !== Number(named[2])) return null;
-      return { date: dayKey(date), token: named[0] };
-    }
-
-    function parseOneScheduleLine(line, sourceIndex) {
-      const raw = line.trim().replace(/^[\s•*\-–]+/, '');
-      if (!raw || raw.length > 500) return null;
-      const cells = raw.split(/\s*\|\s*|\t+/).map(cell => cell.trim()).filter(Boolean);
-      const joined = cells.join(' ');
-      const dateInfo = parseDateToken(joined);
-      const days = parseDayTokens(joined);
-      let range = findTimeRange(joined);
-      let start = range && range.start;
-      let end = range && range.end;
-      let rangeText = range && range.match;
-
-      if (!range && cells.length >= 3) {
-        const times = cells.map((cell, index) => {
-          const match = cell.match(/^\s*(\d{1,2}):(\d{2})\s*(am|pm)?\s*$/i);
-          return match ? { index, time: readClock(match[1], match[2], match[3]), text: cell } : null;
-        }).filter(Boolean);
-        if (times.length >= 2 && times[0].time < times[1].time) {
-          start = times[0].time;
-          end = times[1].time;
-          rangeText = `${times[0].text} ${times[1].text}`;
-        }
-      }
-      if (!start || !end) return null;
-      if (!dateInfo && !days.length) return null;
-
-      let lead = 10;
-      const leadMatch = joined.match(/\b(?:remind(?:er)?|lead(?:\s*time)?|before)\s*:?\s*(\d{1,4})\s*(?:min(?:ute)?s?)?\b/i)
-        || joined.match(/\b(\d{1,4})\s*(?:min(?:ute)?s?)\b/i);
-      if (leadMatch) lead = Number(leadMatch[1]);
-      else if (cells.length >= 4 && /^\d{1,4}$/.test(cells[cells.length - 1])) lead = Number(cells[cells.length - 1]);
-      if (lead > 1440) return null;
-
-      let title = '';
-      if (cells.length > 1) {
-        const candidates = cells.filter(cell => {
-          if (findTimeRange(cell)) return false;
-          if (/^\s*\d{1,2}:\d{2}\s*(?:am|pm)?\s*$/i.test(cell)) return false;
-          if (parseDateToken(cell) || parseDayTokens(cell).length) return false;
-          if (/^\d{1,4}\s*(?:min(?:ute)?s?)?$/i.test(cell)) return false;
-          return true;
-        });
-        title = candidates.join(' ').trim();
-      }
-      if (!title) {
-        title = joined;
-        if (rangeText) title = title.replace(rangeText, ' ');
-        if (dateInfo) title = title.replace(dateInfo.token, ' ');
-        title = title.replace(/\b(?:mon(?:day)?|tues?(?:day)?|wed(?:nesday)?|thur(?:sday)?|thurs?(?:day)?|fri(?:day)?|sat(?:urday)?|sun(?:day)?)\b/gi, ' ');
-        title = title.replace(/\b(?:remind(?:er)?|lead(?:\s*time)?|before)\s*:?\s*\d{1,4}\s*(?:min(?:ute)?s?)?\b/gi, ' ');
-        title = title.replace(/\b\d{1,4}\s*(?:min(?:ute)?s?)\b/gi, ' ');
-        title = title.replace(/\s+/g, ' ').replace(/^[\s|,;:–-]+|[\s|,;:–-]+$/g, '').trim();
-      }
-      if (!title || /^(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)$/i.test(title)) return null;
-      return {
-        id: makeId(), title: title.slice(0, 100), start, end, lead,
-        date: dateInfo ? dateInfo.date : '',
-        days: dateInfo ? [] : days,
-        sourceLine: sourceIndex + 1
-      };
-    }
-
-    function parseScheduleLines(text) {
-      const unique = new Map();
-      text.split(/\r?\n/).forEach((line, index) => {
-        const item = parseOneScheduleLine(line, index);
-        if (!item) return;
-        const signature = JSON.stringify([item.title.toLowerCase(), item.date, [...item.days].sort(), item.start, item.end, item.lead]);
-        if (!unique.has(signature)) unique.set(signature, item);
-      });
-      return [...unique.values()];
-    }
-
-    async function extractDocx(file) {
-      if (!window.mammoth || typeof window.mammoth.convertToHtml !== 'function') {
-        throw new Error('The offline Word parser is unavailable. Check the vendor parser files in this app folder.');
-      }
-      const result = await window.mammoth.convertToHtml({ arrayBuffer: await file.arrayBuffer() });
-      const documentContent = new DOMParser().parseFromString(result.value, 'text/html');
-      const lines = [];
-      documentContent.body.querySelectorAll('p, h1, h2, h3, li, tr').forEach(element => {
-        const text = element.tagName === 'TR'
-          ? [...element.querySelectorAll('th, td')].map(cell => cell.textContent.trim()).filter(Boolean).join(' | ')
-          : element.textContent.trim();
-        if (text) lines.push(text);
-      });
-      return lines.join('\n');
-    }
-
-    async function extractPdf(file) {
-      if (window.pdfjsReady) await window.pdfjsReady;
-      if (!window.pdfjsLib || typeof window.pdfjsLib.getDocument !== 'function') {
-        throw new Error(window.location.protocol === 'file:'
-          ? 'PDF import needs this app opened from localhost so the browser can run its local PDF parser. Start the local app launcher and try again.'
-          : 'The offline PDF parser could not be loaded. Check the vendor parser files in this app folder.');
-      }
-      const bytes = new Uint8Array(await file.arrayBuffer());
-      const task = window.pdfjsLib.getDocument({ data: bytes, disableWorker: true, useWorkerFetch: false, isEvalSupported: false });
-      const pdf = await task.promise;
-      if (pdf.numPages > 200) {
-        await pdf.destroy();
-        throw new Error('This PDF has more than 200 pages. Split it into smaller files before importing.');
-      }
-      const pages = [];
-      for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
-        const page = await pdf.getPage(pageNumber);
-        const content = await page.getTextContent();
-        const rows = [];
-        content.items.filter(item => typeof item.str === 'string' && item.str.trim()).forEach(item => {
-          const x = item.transform[4];
-          const y = item.transform[5];
-          let row = rows.find(candidate => Math.abs(candidate.y - y) < 3);
-          if (!row) {
-            row = { y, cells: [] };
-            rows.push(row);
-          }
-          row.cells.push({ x, text: item.str.trim() });
-        });
-        pages.push(rows.sort((a, b) => b.y - a.y).map(row =>
-          row.cells.sort((a, b) => a.x - b.x).map(cell => cell.text).join(' | ')
-        ).join('\n'));
-        page.cleanup();
-      }
-      await pdf.destroy();
-      return pages.join('\n\n');
-    }
-
-    $('#choose-schedule-file').addEventListener('click', () => $('#schedule-file').click());
-    $('#schedule-file').addEventListener('change', async event => {
-      const files = [...event.target.files];
-      if (!files.length) return;
-      const status = $('#schedule-import-status');
-      status.textContent = 'Reading file locally...';
-      $('#schedule-import-review').hidden = true;
-      importedSchedule = [];
-      try {
-        if (files.length > 5) throw new Error('Choose up to five schedule documents at a time.');
-        if (files.some(file => file.size > 20 * 1024 * 1024)) throw new Error('Each document must be smaller than 20 MB.');
-        const extracted = [];
-        for (const file of files) {
-          const extension = file.name.split('.').pop().toLowerCase();
-          if (extension === 'pdf') extracted.push(await extractPdf(file));
-          else if (extension === 'docx') extracted.push(await extractDocx(file));
-          else throw new Error(`"${file.name}" is not supported. Choose a .docx Word document or PDF.`);
-        }
-        $('#schedule-import-text').value = extracted.filter(Boolean).join('\n\n');
-        $('#schedule-import-review').hidden = false;
-        status.textContent = `${files.length} document${files.length === 1 ? '' : 's'} read. Review the extracted text, then find the schedule blocks.`;
-        parseImportedText();
-        $('#schedule-import-review').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } catch (error) {
-        status.textContent = '';
-        showNotice(`Could not read schedule document: ${error.message}`, true);
-      } finally {
-        event.target.value = '';
-      }
-    });
-
-    function parseImportedText() {
-      importedSchedule = parseScheduleLines($('#schedule-import-text').value);
-      const preview = $('#schedule-import-preview');
-      if (!importedSchedule.length) {
-        preview.innerHTML = '<div class="empty"><strong>No schedule blocks found yet</strong>Edit the extracted text into one of the example formats, then try again.</div>';
-        $('#add-imported-schedule').disabled = true;
-        return;
-      }
-      preview.innerHTML = `<h3>${importedSchedule.length} block${importedSchedule.length === 1 ? '' : 's'} found</h3>` +
-        importedSchedule.map(item => `<div class="import-preview-item"><strong>${escapeHtml(item.title)}</strong><span>${item.date ? escapeHtml(new Date(`${item.date}T12:00:00`).toLocaleDateString()) : item.days.map(day => escapeHtml(new Date(2024, 0, 7 + day).toLocaleDateString(undefined, { weekday: 'short' }))).join(', ')} · ${escapeHtml(item.start)}–${escapeHtml(item.end)} · remind ${item.lead} min before</span></div>`).join('');
-      $('#add-imported-schedule').disabled = false;
-    }
-
-    $('#parse-schedule-text').addEventListener('click', parseImportedText);
-    $('#schedule-import-text').addEventListener('input', () => { $('#add-imported-schedule').disabled = true; });
-    $('#add-imported-schedule').addEventListener('click', () => {
-      if (!importedSchedule.length) return;
-      const signature = item => JSON.stringify([item.title.toLowerCase(), item.date || '', [...(item.days || [])].sort(), item.start, item.end, item.lead]);
-      const existing = new Set(state.schedule.map(signature));
-      const additions = importedSchedule.filter(item => !existing.has(signature(item)));
-      state.schedule.push(...additions);
-      if (!storageWrite()) {
-        state.schedule = state.schedule.filter(item => !additions.includes(item));
-        renderAll();
-        return;
-      }
-      const skipped = importedSchedule.length - additions.length;
-      $('#schedule-import-review').hidden = true;
-      $('#schedule-import-status').textContent = `${additions.length} schedule block${additions.length === 1 ? '' : 's'} added${skipped ? `; ${skipped} duplicate${skipped === 1 ? '' : 's'} skipped` : ''}.`;
-      importedSchedule = [];
-      showNotice('Schedule saved. Before-start and start-time reminders are generated automatically.');
-      renderAll();
-      checkReminders();
-    });
-
-    function resetScheduleForm() {
-      $('#schedule-form').reset();
-      $('#schedule-id').value = '';
-      $('#schedule-type').value = 'weekly';
-      $('#schedule-lead').value = '10';
-      $('#schedule-start').value = '09:00';
-      $('#schedule-end').value = '10:00';
-      $('#schedule-form-heading').textContent = 'Add a schedule block';
-      $('#schedule-save').textContent = 'Add to schedule';
-      $('#schedule-cancel').hidden = true;
-      updateScheduleType();
-    }
-
-    function updateScheduleType() {
-      const oneOff = $('#schedule-type').value === 'once';
-      $('#schedule-date-field').hidden = !oneOff;
-      $('#schedule-days-field').hidden = oneOff;
-      if (oneOff && !$('#schedule-date').value) $('#schedule-date').value = dayKey();
-    }
-
-    function editSchedule(id) {
-      const item = state.schedule.find(entry => entry.id === id);
-      if (!item) return;
-      $('#schedule-id').value = item.id;
-      $('#schedule-title').value = item.title;
-      $('#schedule-course').value = item.course || '';
-      $('#schedule-type').value = item.date ? 'once' : 'weekly';
-      $('#schedule-start').value = item.start;
-      $('#schedule-end').value = item.end;
-      $('#schedule-lead').value = String(item.lead);
-      $('#schedule-date').value = item.date || dayKey();
-      document.querySelectorAll('input[name="schedule-day"]').forEach(input => { input.checked = (item.days || []).includes(Number(input.value)); });
-      $('#schedule-form-heading').textContent = 'Edit schedule block';
-      $('#schedule-save').textContent = 'Save schedule block';
-      $('#schedule-cancel').hidden = false;
-      updateScheduleType();
-      $('#schedule-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    $('#schedule-form').addEventListener('submit', event => {
-      event.preventDefault();
-      const id = $('#schedule-id').value;
-      const title = $('#schedule-title').value.trim();
-      const course = $('#schedule-course').value.trim().slice(0, 48);
-      const start = $('#schedule-start').value;
-      const end = $('#schedule-end').value;
-      const lead = Number($('#schedule-lead').value);
-      const oneOff = $('#schedule-type').value === 'once';
-      const date = oneOff ? $('#schedule-date').value : '';
-      const days = oneOff ? [] : [...document.querySelectorAll('input[name="schedule-day"]:checked')].map(input => Number(input.value));
-      if (!title) return showNotice('Enter a title for this schedule block.', true);
-      if (!validTime(start) || !validTime(end) || start >= end) return showNotice('Enter a valid start time before the end time.', true);
-      if (!Number.isInteger(lead) || lead < 0 || lead > 1440) return showNotice('Reminder lead time must be from 0 to 1,440 minutes.', true);
-      if (oneOff && !/^\d{4}-\d{2}-\d{2}$/.test(date)) return showNotice('Choose a date for this one-off block.', true);
-      if (!oneOff && !days.length) return showNotice('Choose at least one day for a weekly block.', true);
-      const updated = { id: id || makeId(), title, course, start, end, lead, date, days };
-      const index = state.schedule.findIndex(item => item.id === id);
-      if (index >= 0) state.schedule[index] = updated;
-      else state.schedule.push(updated);
-      if (!storageWrite()) { renderAll(); return; }
-      showNotice('Schedule saved. Reminders have been updated.');
-      resetScheduleForm();
-      renderAll();
-      checkReminders();
-    });
-
-    $('#schedule-cancel').addEventListener('click', resetScheduleForm);
-    $('#schedule-type').addEventListener('change', updateScheduleType);
-
-    // Generated reminders and once-per-day reminder log
-    function scheduleOccurrences(fromDate, daysAhead) {
-      const occurrences = [];
-      state.schedule.forEach(item => {
-        occurrenceDates(item, fromDate, daysAhead).forEach(date => {
-          const startAt = dateAtTime(date, item.start);
-          const startKey = `${dayKey(date)}|schedule|${item.id}|start|${item.start}`;
-          if (item.lead > 0) {
-            const leadAt = new Date(startAt.getTime() - item.lead * 60000);
-            const leadKey = `${dayKey(leadAt)}|schedule|${item.id}|lead|${dayKey(date)}|${item.start}|${item.lead}`;
-            occurrences.push({ item, date, startAt, at: leadAt, kind: 'lead', key: leadKey });
-          }
-          occurrences.push({ item, date, startAt, at: startAt, kind: 'start', key: startKey });
-        });
-      });
-      return occurrences;
-    }
-
-    function allRemindersForToday() {
-      const today = dayKey();
-      const midnight = new Date();
-      midnight.setHours(0, 0, 0, 0);
-      const tomorrow = addDays(midnight, 1);
-      const scheduleReminders = scheduleOccurrences(addDays(midnight, -1), 4)
-        .filter(reminder => dayKey(reminder.at) === today)
-        .map(reminder => ({
-          key: reminder.key, at: reminder.at,
-          title: reminder.kind === 'start' ? `${reminder.item.title} is starting now` : `${reminder.item.title} starts soon`,
-          description: reminder.kind === 'start' ? 'Scheduled start time' : `${reminder.item.lead} minutes before start`,
-          kind: 'schedule'
-        }));
-      const targetReminders = [];
-      activitiesFor(today).forEach(item => item.reminders.forEach(time => {
-        const at = dateAtTime(new Date(), time);
-        targetReminders.push({
-          key: `${today}|target|${item.id}|${time}`, at,
-          title: `${item.name} check-in`, description: `Daily target · ${time}`, kind: 'target'
-        });
-      }));
-      return [...scheduleReminders, ...targetReminders].filter(reminder =>
-        reminder.at >= midnight && reminder.at < tomorrow
-      ).sort((a, b) => a.at - b.at || a.title.localeCompare(b.title));
-    }
-
-    function hasFired(date, key) {
-      return Boolean(state.fired[date] && state.fired[date][key]);
-    }
-
-    function markFired(date, key) {
-      if (!isRecord(state.fired[date])) state.fired[date] = {};
-      state.fired[date][key] = true;
-    }
-
-    function renderReminders() {
-      const reminders = allRemindersForToday();
-      $('#reminder-list').innerHTML = reminders.map(item => {
-        const date = dayKey(item.at);
-        const fired = hasFired(date, item.key);
-        const status = fired ? 'Sent' : item.at <= new Date() ? 'Passed' : 'Upcoming';
-        return `<article class="reminder-item">
-          <div class="reminder-row"><div><div class="schedule-title">${escapeHtml(item.title)}</div><p class="reminder-meta">${escapeHtml(item.description)}</p></div>
-            <span class="reminder-status${status === 'Upcoming' ? ' due' : ''}">${escapeHtml(item.at.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }))} · ${status}</span>
-          </div></article>`;
-      }).join('') || '<div class="empty">No reminders for today. Add reminder times to a target or schedule block.</div>';
-      $('#notification-button').hidden = !('Notification' in window) || Notification.permission !== 'default';
-      $('#reminder-help').textContent = ('Notification' in window && Notification.permission === 'granted')
-        ? 'In-page and browser notifications are enabled while this app is open.'
-        : 'In-page reminders work while the app is open. Enable browser notifications for system alerts.';
-    }
-
-    function checkReminders() {
-      const now = new Date();
-      const today = dayKey(now);
-      const items = scheduleOccurrences(addDays(new Date(now.getFullYear(), now.getMonth(), now.getDate()), -1), 4)
-        .filter(item => dayKey(item.at) === today && item.at <= now && now.getTime() - item.at.getTime() < 60000);
-      allRemindersForToday().filter(item => item.at <= now && now.getTime() - item.at.getTime() < 60000)
-        .forEach(item => items.push({ ...item, key: item.key, at: item.at, item: { title: item.title }, kind: 'target' }));
-      let changed = false;
-      items.forEach(reminder => {
-        const logDate = dayKey(reminder.at);
-        if (hasFired(logDate, reminder.key)) return;
-        markFired(logDate, reminder.key);
-        changed = true;
-        const message = reminder.kind === 'target'
-          ? reminder.title
-          : reminder.kind === 'start' ? `${reminder.item.title} is starting now.` : `${reminder.item.title} starts in ${reminder.item.lead} minutes.`;
-        $('#reminder-banner').textContent = `Reminder: ${message}`;
-        $('#reminder-banner').hidden = false;
-        if ('Notification' in window && Notification.permission === 'granted') {
-          try { new Notification('StudyTrack', { body: message }); }
-          catch (error) { showNotice(`Could not show a browser notification: ${error.message}`, true); }
-        }
-      });
-      if (changed) storageWrite();
-      renderReminders();
-      checkBedtime();
-    }
-
-    $('#notification-button').addEventListener('click', async () => {
-      try {
-        const result = await Notification.requestPermission();
-        if (result === 'denied') showNotice("Notifications are blocked. Change this site's notification permission in your browser settings.");
-        renderReminders();
-      } catch (error) { showNotice(`Could not enable notifications: ${error.message}`, true); }
-    });
-
-    // Settings, theme, and reminder preference
-    function previewSettings() {
-      const settings = {
-        ...state.settings,
-        name: $('#setting-name').value.trim(),
-        theme: $('#setting-theme').value,
-        accent: $('#setting-accent').value,
-        background: $('#setting-background').value,
-        fontSize: $('#setting-font').value,
-        weekStarts: Number($('#setting-week-start').value),
-        bedtime: $('#setting-bedtime').value
-      };
-      state.settings = settings;
-      applySettings();
-      $('#custom-colors').hidden = settings.theme !== 'custom';
-      renderTargets();
-      renderSchedule();
-      renderReminders();
-    }
-
-    $('#settings-form').addEventListener('input', previewSettings);
-    $('#settings-form').addEventListener('change', previewSettings);
-    $('#settings-form').addEventListener('submit', event => {
-      event.preventDefault();
-      if (!validTime($('#setting-bedtime').value)) return showNotice('Choose a valid bedtime prompt time.', true);
-      previewSettings();
-      if (!storageWrite()) return;
-      showNotice('Settings saved.');
-      renderAll();
-    });
-    $('#header-theme').addEventListener('click', () => {
-      state.settings.theme = state.settings.theme === 'dark' ? 'light' : 'dark';
-      $('#setting-theme').value = state.settings.theme;
-      $('#custom-colors').hidden = true;
-      applySettings();
-      storageWrite();
-    });
-
-    // Bedtime prompt and tomorrow plan
-    function tomorrowKey(reference = dayKey()) {
-      const [year, month, day] = reference.split('-').map(Number);
-      return dayKey(new Date(year, month - 1, day + 1, 12));
-    }
-
-    function renderBedtimeTargets() {
-      const date = tomorrowKey();
-      bedtimeDraft = activitiesFor(date).map(item => ({ id: item.id, goal: goalFor(item, date), isNew: false }));
-      bedtimeNewTargets = [];
-      drawBedtimeTargets();
-    }
-
-    function drawBedtimeTargets() {
-      const date = tomorrowKey();
-      $('#bedtime-targets').innerHTML = bedtimeDraft.map((entry, index) => {
-        const activity = state.activities.find(item => item.id === entry.id);
-        return `<div class="bedtime-target">
-          <label for="bedtime-goal-${index}"><strong>${escapeHtml(activity ? activity.name : entry.name)}</strong><br><span class="muted">${escapeHtml(activity ? activity.unit : entry.unit)}</span></label>
-          <input id="bedtime-goal-${index}" data-plan-index="${index}" type="number" min="1" max="1000000" step="1" value="${entry.goal}" aria-label="Tomorrow's goal for ${escapeHtml(activity ? activity.name : entry.name)}">
-        </div>`;
-      }).join('') || '<div class="empty">No targets yet. Add one below for tomorrow.</div>';
-      $('#bedtime-targets').querySelectorAll('[data-plan-index]').forEach(input => input.addEventListener('change', () => {
-        bedtimeDraft[Number(input.dataset.planIndex)].goal = Number(input.value);
-      }));
-    }
-
-    function openBedtime(date) {
-      if (state.bedtime[date] && state.bedtime[date].done) return;
-      if (state.bedtime[date] && state.bedtime[date].snoozeUntil > Date.now()) return;
-      bedtimePromptDate = date;
-      renderBedtimeTargets();
-      $('#bedtime-backdrop').hidden = false;
-      $('#bedtime-save').focus();
-    }
-
-    function checkBedtime() {
-      const today = dayKey();
-      if (lastDay !== today) {
-        lastDay = today;
-        renderAll();
-      }
-      if (!validTime(state.settings.bedtime) || (state.bedtime[today] && state.bedtime[today].done)) return;
-      const now = new Date();
-      const bedtimeAt = dateAtTime(now, state.settings.bedtime);
-      if (now >= bedtimeAt) openBedtime(today);
-    }
-
-    $('#bedtime-add-button').addEventListener('click', () => {
-      const name = $('#bedtime-new-name').value.trim();
-      const goal = Number($('#bedtime-new-goal').value);
-      const unit = $('#bedtime-new-unit').value.trim() || 'times';
-      const reminders = parseReminders($('#bedtime-new-reminders').value);
-      if (!name || !Number.isSafeInteger(goal) || goal < 1 || goal > 1000000) return showNotice('Enter a name and a whole-number goal for the new target.', true);
-      if (reminders === null) return showNotice('Use unique reminder times in 24-hour HH:MM format.', true);
-      const id = makeId();
-      bedtimeNewTargets.push({ id, name, goal, unit, reminders });
-      bedtimeDraft.push({ id, goal, isNew: true, name, unit });
-      $('#bedtime-new-name').value = '';
-      $('#bedtime-new-goal').value = '1';
-      $('#bedtime-new-unit').value = 'times';
-      $('#bedtime-new-reminders').value = '';
-      drawBedtimeTargets();
-    });
-
-    $('#bedtime-save').addEventListener('click', () => {
-      if (!bedtimePromptDate) return;
-      const inputs = [...$('#bedtime-targets').querySelectorAll('[data-plan-index]')];
-      for (const input of inputs) {
-        const goal = Number(input.value);
-        if (!Number.isSafeInteger(goal) || goal < 1 || goal > 1000000) {
-          showNotice('Each tomorrow goal must be a whole number from 1 to 1,000,000.', true);
-          input.focus();
-          return;
-        }
-        bedtimeDraft[Number(input.dataset.planIndex)].goal = goal;
-      }
-      const planDate = tomorrowKey(bedtimePromptDate);
-      if (!isRecord(state.plans[planDate])) state.plans[planDate] = {};
-      bedtimeNewTargets.forEach(item => state.activities.push({ ...item, activeFrom: planDate }));
-      bedtimeDraft.forEach(entry => { state.plans[planDate][entry.id] = entry.goal; });
-      state.bedtime[bedtimePromptDate] = { done: true, snoozeUntil: 0 };
-      if (!storageWrite()) { renderAll(); return; }
-      $('#bedtime-backdrop').hidden = true;
-      showNotice(`Tomorrow's plan is saved for ${new Date(`${planDate}T12:00:00`).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}.`);
-      bedtimePromptDate = '';
-      renderAll();
-    });
-
-    $('#bedtime-snooze').addEventListener('click', () => {
-      if (bedtimePromptDate) state.bedtime[bedtimePromptDate] = { done: false, snoozeUntil: Date.now() + 15 * 60000 };
-      if (!storageWrite()) return;
-      $('#bedtime-backdrop').hidden = true;
-      bedtimePromptDate = '';
-    });
-
-    // Data import and export
-    $('#import-button').addEventListener('click', () => $('#import-file').click());
-    $('#import-file').addEventListener('change', async event => {
-      const file = event.target.files[0]; if (!file) return;
-      try { await importFullBackup(file); }
-      catch (error) { showNotice(`Could not import backup: ${error.message}`, true); }
-      finally { event.target.value = ''; }
-    });
-
-
-    // STORAGE: account-scoped IndexedDB records; no fallback to localStorage for file blobs.
-    const FILE_DB_NAME = 'dailyTargets.files.v1';
-    const FILE_STORE_NAME = 'files';
-    const FILE_SOFT_LIMIT = 100 * 1024 * 1024;
-    const FILE_MAX_SIZE = 10 * 1024 * 1024;
-    const ALLOWED_EXTENSIONS = new Set(['pdf','docx','txt','md','csv','png','jpg','jpeg','webp','gif']);
-    let fileCache = [];
-    let fileDbAvailable = false;
-    let previewObjectUrl = '';
-    let previewFileId = '';
-    let previewZoom = 1;
-    let activeAttachment = null;
-    let lastDialogFocus = null;
-
-    function fileOwnerKey() { return activeUser && activeUser.id ? String(activeUser.id) : 'local'; }
-    function openFileDatabase() {
-      return new Promise((resolve, reject) => {
-        try {
-          if (!('indexedDB' in window)) return reject(new Error('This browser does not support IndexedDB.'));
-          const request = indexedDB.open(FILE_DB_NAME, 1);
-          request.onupgradeneeded = () => {
-            const db = request.result;
-            if (!db.objectStoreNames.contains(FILE_STORE_NAME)) {
-              const store = db.createObjectStore(FILE_STORE_NAME, { keyPath: 'key' });
-              store.createIndex('ownerId', 'ownerId', { unique: false });
-            }
-          };
-          request.onsuccess = () => resolve(request.result);
-          request.onerror = () => reject(request.error || new Error('Could not open local file storage.'));
-          request.onblocked = () => reject(new Error('File storage upgrade is blocked by another app tab. Close older tabs and retry.'));
-        } catch (error) { reject(error); }
-      });
-    }
-    async function fileDbRequest(mode, action, value) {
-      let db;
-      try {
-        db = await openFileDatabase();
-        return await new Promise((resolve, reject) => {
-          try {
-            const tx = db.transaction(FILE_STORE_NAME, mode);
-            const store = tx.objectStore(FILE_STORE_NAME);
-            tx.oncomplete = () => {
-              if (action === 'put' || action === 'delete' || action === 'clear-owner') resolve(true);
-            };
-            tx.onerror = () => reject(tx.error || new Error('A local file-storage transaction failed.'));
-            tx.onabort = () => reject(tx.error || new Error('The local file-storage transaction was cancelled.'));
-            if (action === 'clear-owner') {
-              const cursorRequest = store.index('ownerId').openCursor(value);
-              cursorRequest.onsuccess = () => {
-                const cursor = cursorRequest.result;
-                if (cursor) { cursor.delete(); cursor.continue(); }
-              };
-              cursorRequest.onerror = () => reject(cursorRequest.error || new Error('Could not clear this account’s local files.'));
-              return;
-            }
-            let request;
-            if (action === 'all-owner') request = store.index('ownerId').getAll(value);
-            else if (action === 'put') request = store.put(value);
-            else if (action === 'delete') request = store.delete(value);
-            else request = store.get(value);
-            request.onsuccess = () => {
-              if (action !== 'put' && action !== 'delete') resolve(request.result);
-            };
-            request.onerror = () => reject(request.error || new Error('A local file-storage operation failed.'));
-          } catch (error) { reject(error); }
-        });
-      } catch (error) { throw error; }
-      finally { if (db) { try { db.close(); } catch (error) { console.warn('Could not close local file database.', error); } } }
-    }
-    function fileKey(id, owner = fileOwnerKey()) { return `${owner}::${id}`; }
-    function fileExtension(name) { return String(name).split('.').pop().toLowerCase(); }
-    function fileCategory(record) {
-      const ext = fileExtension(record.name);
-      if (['png','jpg','jpeg','webp','gif'].includes(ext)) return 'pictures';
-      if (ext === 'pdf') return 'pdf';
-      return 'documents';
-    }
-    function formatBytes(bytes) {
-      if (bytes < 1024) return `${bytes} B`;
-      if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-    }
-    function fileDownloadName(name) { return String(name || 'download').replace(/[\\/\0-\x1f]/g, '_'); }
-    function fileBlobForPreview(record) {
-      const ext = fileExtension(record.name);
-      const mime = ext === 'pdf' ? 'application/pdf' : ext === 'txt' || ext === 'md' || ext === 'csv' ? 'text/plain' : record.type || 'application/octet-stream';
-      return record.blob.type === mime ? record.blob : new Blob([record.blob], { type: mime });
-    }
-    function showFileDbStatus(message, error = false) {
-      const element = $('#file-db-status');
-      element.textContent = message;
-      element.classList.toggle('error', error);
-      element.hidden = false;
-    }
-    async function refreshFiles() {
-      const list = $('#file-list');
-      if (!list) return;
-      list.innerHTML = '<div class="empty"><strong>Loading your files…</strong>Reading this account’s local library.</div>';
-      try {
-        fileCache = await fileDbRequest('readonly', 'all-owner', fileOwnerKey()) || [];
-        fileCache.sort((a, b) => String(b.uploadedAt).localeCompare(String(a.uploadedAt)));
-        fileDbAvailable = true;
-        showFileDbStatus(navigator.onLine ? 'Ready · files are stored only on this device.' : 'Offline · your local files remain available.', false);
-        renderFiles();
-        updateFileStorageUsage();
-      } catch (error) {
-        fileDbAvailable = false;
-        fileCache = [];
-        list.innerHTML = `<div class="empty"><strong>Local file storage is unavailable</strong>${escapeHtml(error.message)}<br>Retry after enabling browser storage. No files were uploaded.</div>`;
-        showFileDbStatus(`Could not open local file storage: ${error.message}`, true);
-        $('#files-summary').textContent = 'Library unavailable. Use Retry to try again.';
-        if (!$('#file-retry')) {
-          const retry = document.createElement('button'); retry.id = 'file-retry'; retry.type = 'button'; retry.className = 'button'; retry.textContent = 'Retry file storage';
-          $('#file-db-status').after(retry);
-          retry.addEventListener('click', refreshFiles);
-        }
-      }
-    }
-    function renderFiles() {
-      const query = $('#file-search').value.trim().toLocaleLowerCase();
-      const category = $('#file-type-filter').value;
-      const tag = $('#file-tag-filter').value;
-      const visible = fileCache.filter(record => {
-        const matchesQuery = !query || record.name.toLocaleLowerCase().includes(query) || (record.tags || []).some(item => item.toLocaleLowerCase().includes(query));
-        const matchesType = category === 'all' || fileCategory(record) === category;
-        const matchesTag = tag === 'all' || (record.tags || []).includes(tag);
-        return matchesQuery && matchesType && matchesTag;
-      });
-      const total = fileCache.reduce((sum, item) => sum + Number(item.size || 0), 0);
-      $('#files-summary').textContent = `${visible.length} of ${fileCache.length} files · ${formatBytes(total)} used on this device`;
-      const tagSelect = $('#file-tag-filter');
-      const selectedTag = tagSelect.value;
-      const tags = [...new Set(fileCache.flatMap(record => record.tags || []))].sort((a,b) => a.localeCompare(b));
-      tagSelect.innerHTML = '<option value="all">All tags</option>' + tags.map(item => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`).join('');
-      if (tags.includes(selectedTag)) tagSelect.value = selectedTag;
-      if (!visible.length) {
-        $('#file-list').innerHTML = fileCache.length
-          ? '<div class="empty"><strong>No matching files</strong>Try another search or filter.</div>'
-          : '<div class="empty"><strong>Your library is empty</strong>Upload your first study document or picture. It will stay in this browser.</div>';
-        return;
-      }
-      $('#file-list').innerHTML = visible.map(record => {
-        const picture = fileCategory(record) === 'pictures';
-        const thumbnail = picture ? `<div class="file-thumb"><img loading="lazy" src="${escapeHtml(getThumbnailUrl(record))}" alt="Preview of ${escapeHtml(record.name)}"></div>` : `<div class="file-thumb" aria-hidden="true">${fileCategory(record) === 'pdf' ? '▤' : '▧'}</div>`;
-        const tags = (record.tags || []).map(item => `<span class="tag-chip">${escapeHtml(item)}</span>`).join('');
-        return `<article class="file-card" data-file-card="${escapeHtml(record.id)}">${thumbnail}<p class="file-name">${escapeHtml(record.name)}</p><p class="file-meta">${escapeHtml(record.type || fileExtension(record.name).toUpperCase())} · ${formatBytes(record.size)}<br>Added ${escapeHtml(new Date(record.uploadedAt).toLocaleDateString())}</p><div class="tag-list">${tags || '<span class="muted">No tags</span>'}</div><div class="file-actions"><button class="button small" type="button" data-action="file-preview" data-id="${escapeHtml(record.id)}">Open</button><button class="button small" type="button" data-action="file-download" data-id="${escapeHtml(record.id)}">Download</button><button class="button small" type="button" data-action="file-rename" data-id="${escapeHtml(record.id)}">Rename</button><button class="button small" type="button" data-action="file-tag" data-id="${escapeHtml(record.id)}">Tag</button><button class="button small danger" type="button" data-action="file-delete" data-id="${escapeHtml(record.id)}">Delete</button></div></article>`;
-      }).join('');
-    }
-    const thumbnailUrls = new Map();
-    function getThumbnailUrl(record) {
-      if (!thumbnailUrls.has(record.id)) thumbnailUrls.set(record.id, URL.createObjectURL(record.blob));
-      return thumbnailUrls.get(record.id);
-    }
-    async function updateFileStorageUsage() {
-      try {
-        const bytes = fileCache.reduce((sum, item) => sum + Number(item.size || 0), 0);
-        const percentage = Math.min(100, bytes / FILE_SOFT_LIMIT * 100);
-        $('#file-storage-meter').style.width = `${percentage}%`;
-        $('#file-storage-meter').parentElement.classList.toggle('warning', percentage >= 80);
-        let browserLine = '';
-        try {
-          if (navigator.storage && navigator.storage.estimate) {
-            const estimate = await navigator.storage.estimate();
-            if (Number.isFinite(estimate.quota)) browserLine = ` Browser quota estimate: ${formatBytes(estimate.quota)}.`;
-          }
-        } catch (error) { browserLine = ' Browser quota estimate unavailable.'; }
-        $('#file-storage-usage').textContent = `${formatBytes(bytes)} of 100 MB soft limit used (${Math.round(percentage)}%).${percentage >= 80 ? ' Storage is getting close to the soft limit; export a backup or remove files you no longer need.' : ''}${browserLine}`;
-      } catch (error) { $('#file-storage-usage').textContent = `Could not calculate file storage use: ${error.message}`; }
-    }
-    function readFileWithProgress(file, progress) {
-      return new Promise((resolve, reject) => {
-        try {
-          const reader = new FileReader();
-          reader.onprogress = event => { if (event.lengthComputable) progress(Math.round(event.loaded / event.total * 100)); };
-          reader.onload = () => resolve(new Blob([reader.result], { type: file.type || 'application/octet-stream' }));
-          reader.onerror = () => reject(reader.error || new Error('Could not read this file.'));
-          reader.onabort = () => reject(new Error('File read cancelled.'));
-          reader.readAsArrayBuffer(file);
-        } catch (error) { reject(error); }
-      });
-    }
-    async function uploadFiles(fileList) {
-      if (!fileDbAvailable) { showFileDbStatus('Local file storage is not ready. Retry it before uploading.', true); return; }
-      const files = [...fileList];
-      const queue = $('#upload-queue');
-      queue.innerHTML = '';
-      for (const file of files) {
-        const row = document.createElement('div');
-        row.className = 'upload-progress';
-        row.innerHTML = `<span>${escapeHtml(file.name)}</span><span class="progress-label">Waiting</span><progress max="100" value="0" aria-label="Upload progress for ${escapeHtml(file.name)}"></progress>`;
-        queue.append(row);
-      }
-      let succeeded = 0;
-      for (let index = 0; index < files.length; index += 1) {
-        const file = files[index];
-        const row = queue.children[index];
-        const label = row.querySelector('.progress-label');
-        const progress = row.querySelector('progress');
-        try {
-          const ext = fileExtension(file.name);
-          if (!ALLOWED_EXTENSIONS.has(ext)) throw new Error('File type not supported.');
-          if (file.size > FILE_MAX_SIZE) throw new Error('Too large. Each file must be 10 MB or smaller.');
-          if (!file.size) throw new Error('This file is empty.');
-          label.textContent = 'Reading…';
-          const blob = await readFileWithProgress(file, value => { progress.value = value; label.textContent = `Reading ${value}%`; });
-          const existingBytes = fileCache.reduce((sum, item) => sum + Number(item.size || 0), 0);
-          if (existingBytes + blob.size > FILE_SOFT_LIMIT && existingBytes < FILE_SOFT_LIMIT) showNotice('Your library is above its 100 MB soft limit. You can continue, but browser storage may be limited. Export a backup or remove files you no longer need.', false);
-          const id = makeId();
-          const record = { key:fileKey(id), id, ownerId:fileOwnerKey(), name:fileDownloadName(file.name), type:file.type || 'application/octet-stream', size:blob.size, uploadedAt:new Date().toISOString(), tags:[], linkedTo:[], blob };
-          progress.value = 100; label.textContent = 'Saving locally…';
-          await fileDbRequest('readwrite', 'put', record);
-          succeeded += 1; label.textContent = 'Saved on this device';
-        } catch (error) { label.textContent = `Error: ${error.message}`; row.classList.add('notice','error'); }
-      }
-      await refreshFiles();
-      if (succeeded) showNotice(`${succeeded} file${succeeded === 1 ? '' : 's'} saved to this device. Nothing was uploaded.`);
-    }
-    $('#upload-files-button').addEventListener('click', () => $('#files-input').click());
-    $('#file-dropzone').addEventListener('dragover', event => { event.preventDefault(); $('#file-dropzone').classList.add('dragover'); });
-    $('#file-dropzone').addEventListener('dragleave', () => $('#file-dropzone').classList.remove('dragover'));
-    $('#file-dropzone').addEventListener('drop', event => { event.preventDefault(); $('#file-dropzone').classList.remove('dragover'); if (event.dataTransfer && event.dataTransfer.files) uploadFiles(event.dataTransfer.files); });
-    $('#files-input').addEventListener('change', event => { uploadFiles(event.target.files); event.target.value = ''; });
-    $('#file-search').addEventListener('input', renderFiles);
-    $('#file-type-filter').addEventListener('change', renderFiles);
-    $('#file-tag-filter').addEventListener('change', renderFiles);
-    window.addEventListener('online', () => { $('#file-online-status').textContent = 'Online'; });
-    window.addEventListener('offline', () => { $('#file-online-status').textContent = 'Offline · files remain available locally'; });
-    $('#file-online-status').textContent = navigator.onLine ? 'On this device' : 'Offline · available locally';
-
-    function findLocalFile(id) { return fileCache.find(item => item.id === id) || null; }
-    async function saveFileRecord(record) {
-      record.key = fileKey(record.id, record.ownerId || fileOwnerKey());
-      await fileDbRequest('readwrite', 'put', record);
-      const index = fileCache.findIndex(item => item.id === record.id);
-      if (index < 0) fileCache.push(record); else fileCache[index] = record;
-    }
-    function linkedFilesFor(kind, id) {
-      return fileCache.filter(record => (record.linkedTo || []).some(link => link.kind === kind && link.id === id));
-    }
-    function renderLinkedFileNames(kind, id) {
-      const records = linkedFilesFor(kind, id);
-      if (!records.length) return '';
-      return `<div class="linked-files" aria-label="Attached files">${records.map(record => `<button class="file-link-chip" type="button" data-action="file-preview" data-id="${escapeHtml(record.id)}">▧ ${escapeHtml(record.name)}</button>`).join('')}</div>`;
-    }
-    async function openAttachPicker(kind, id) {
-      activeAttachment = { kind, id };
-      lastDialogFocus = document.activeElement;
-      const available = fileCache;
-      $('#attach-title').textContent = kind === 'schedule' ? 'Attach files to schedule block' : 'Attach files to study session';
-      $('#attach-empty').hidden = available.length > 0;
-      $('#attach-list').innerHTML = available.map(record => {
-        const checked = (record.linkedTo || []).some(link => link.kind === kind && link.id === id);
-        return `<label class="attach-option"><input type="checkbox" value="${escapeHtml(record.id)}" ${checked ? 'checked' : ''}><span><strong>${escapeHtml(record.name)}</strong><br><span class="muted">${formatBytes(record.size)} · ${(record.tags || []).map(escapeHtml).join(', ') || 'No tags'}</span></span></label>`;
-      }).join('');
-      $('#attach-backdrop').hidden = false;
-      $('#attach-close').focus();
-    }
-    function closeAttachPicker() { $('#attach-backdrop').hidden = true; activeAttachment = null; if (lastDialogFocus && lastDialogFocus.focus) lastDialogFocus.focus(); }
-    $('#attach-close').addEventListener('click', closeAttachPicker);
-    $('#attach-backdrop').addEventListener('click', event => { if (event.target === $('#attach-backdrop')) closeAttachPicker(); });
-    $('#attach-save').addEventListener('click', async () => {
-      if (!activeAttachment) return;
-      const { kind, id } = activeAttachment;
-      const selected = new Set([...$('#attach-list').querySelectorAll('input:checked')].map(input => input.value));
-      try {
-        for (const record of fileCache) {
-          const links = (record.linkedTo || []).filter(link => !(link.kind === kind && link.id === id));
-          if (selected.has(record.id)) links.push({ kind, id });
-          if (links.length !== (record.linkedTo || []).length || selected.has(record.id)) {
-            record.linkedTo = links;
-            await saveFileRecord(record);
-          }
-        }
-        closeAttachPicker(); renderFiles(); renderSchedule(); renderSessions();
-        showNotice('File links saved on this device.');
-      } catch (error) { showNotice(`Could not save file links: ${error.message}`, true); }
-    });
-
-    // PREVIEW: never interpret file contents as HTML or execute user data.
-    function clearPreviewUrl() { if (previewObjectUrl) { try { URL.revokeObjectURL(previewObjectUrl); } catch (error) { console.warn('Could not release preview URL.', error); } previewObjectUrl = ''; } }
-    function closeFilePreview() { $('#file-preview-backdrop').hidden = true; clearPreviewUrl(); previewFileId = ''; $('#file-preview-stage').replaceChildren(); $('#visual-schedule-entry').hidden = true; $('#file-preview-layout').classList.remove('visual-entry'); $('#ocr-result-wrap').hidden = true; if (lastDialogFocus && lastDialogFocus.focus) lastDialogFocus.focus(); }
-    function openFilePreview(record) {
-      if (!record) return;
-      clearPreviewUrl(); previewFileId = record.id; previewZoom = 1; lastDialogFocus = document.activeElement;
-      const stage = $('#file-preview-stage'); stage.replaceChildren();
-      $('#file-preview-title').textContent = record.name;
-      $('#file-preview-meta').textContent = `${record.type || fileExtension(record.name).toUpperCase()} · ${formatBytes(record.size)} · added ${new Date(record.uploadedAt).toLocaleString()}`;
-      $('#preview-tool-status').textContent = '';
-      $('#visual-schedule-entry').hidden = true; $('#file-preview-layout').classList.remove('visual-entry'); $('#ocr-result-wrap').hidden = true;
-      $('#file-schedule-button').hidden = true; $('#file-ocr-button').hidden = true; $('#pdf-text-button').hidden = true; $('#file-zoom-button').hidden = true;
-      const blob = fileBlobForPreview(record); previewObjectUrl = URL.createObjectURL(blob);
-      const ext = fileExtension(record.name);
-      $('#file-download-button').textContent = ext === 'docx' ? 'Download to view' : 'Download';
-      if (['png','jpg','jpeg','webp','gif'].includes(ext)) {
-        const image = document.createElement('img'); image.src = previewObjectUrl; image.alt = `Full-size preview of ${record.name}`; image.id = 'preview-image'; stage.append(image);
-        $('#file-zoom-button').hidden = false; $('#file-schedule-button').hidden = false; $('#file-ocr-button').hidden = false;
-      } else if (ext === 'pdf') {
-        const iframe = document.createElement('iframe'); iframe.src = previewObjectUrl; iframe.title = `PDF preview: ${record.name}`; iframe.setAttribute('sandbox','allow-scripts'); stage.append(iframe);
-        $('#file-schedule-button').hidden = false; $('#pdf-text-button').hidden = false;
-      } else if (ext === 'txt' || ext === 'md' || ext === 'csv') {
-        const pre = document.createElement('pre'); stage.append(pre);
-        record.blob.text().then(text => { if (previewFileId === record.id) pre.textContent = text; }).catch(error => { if (previewFileId === record.id) pre.textContent = `Could not display this text file: ${error.message}`; });
-        $('#file-schedule-button').hidden = ext === 'csv' ? false : false;
-      } else if (ext === 'docx') {
-        const message = document.createElement('div'); message.className='empty'; message.innerHTML='<strong>Download to view</strong>Word previews need an additional document-rendering library. The file stays on this device.'; stage.append(message);
-      }
-      $('#file-download-button').onclick = () => downloadFile(record);
-      $('#file-preview-backdrop').hidden = false; $('#file-preview-close').focus();
-    }
-    function downloadFile(record) {
-      try {
-        const url = URL.createObjectURL(record.blob);
-        const anchor = document.createElement('a'); anchor.href = url; anchor.download = fileDownloadName(record.name); anchor.rel = 'noopener'; anchor.click();
-        setTimeout(() => { try { URL.revokeObjectURL(url); } catch (error) { console.warn('Could not release download URL.', error); } }, 1000);
-      } catch (error) { showNotice(`Could not download this file: ${error.message}`, true); }
-    }
-    $('#file-preview-close').addEventListener('click', closeFilePreview);
-    $('#file-preview-backdrop').addEventListener('click', event => { if (event.target === $('#file-preview-backdrop')) closeFilePreview(); });
-    $('#file-zoom-button').addEventListener('click', () => {
-      previewZoom = previewZoom >= 2 ? 1 : previewZoom + .25;
-      const image = $('#preview-image'); if (image) image.style.transform = `scale(${previewZoom})`;
-      $('#file-zoom-button').textContent = previewZoom >= 2 ? 'Reset zoom' : `Zoom in (${Math.round(previewZoom * 100)}%)`;
-    });
-    function useTextForSchedule(text) {
-      closeFilePreview();
-      $('#schedule-import-review').hidden = false;
-      $('#schedule-import-text').value = text;
-      $('#schedule-import-status').textContent = 'Text is ready. Review it and choose Find schedule blocks.';
-      parseImportedText();
-      $('#schedule-section').scrollIntoView({ behavior:'smooth', block:'start' });
-      $('#schedule-import-text').focus();
-    }
-    $('#file-schedule-button').addEventListener('click', async () => {
-      const record = findLocalFile(previewFileId); if (!record) return;
-      const ext = fileExtension(record.name);
-      if (['txt','md','csv'].includes(ext)) {
-        try { useTextForSchedule(await record.blob.text()); } catch (error) { showNotice(`Could not read schedule text: ${error.message}`, true); }
-      } else {
-        $('#visual-schedule-entry').hidden = false;
-        $('#file-preview-layout').classList.add('visual-entry');
-        $('#visual-schedule-entry').scrollIntoView({ behavior:'smooth', block:'nearest' });
-        $('#visual-schedule-text').focus();
-      }
-    });
-    $('#send-visual-schedule').addEventListener('click', () => useTextForSchedule($('#visual-schedule-text').value));
-    $('#send-ocr-schedule').addEventListener('click', () => useTextForSchedule($('#ocr-result-text').value));
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape') { if (!$('#file-preview-backdrop').hidden) closeFilePreview(); if (!$('#attach-backdrop').hidden) closeAttachPicker(); }
-    });
-    async function loadScriptOnce(src, globalName) {
-      if (window[globalName]) return window[globalName];
-      return new Promise((resolve, reject) => {
-        try {
-          const existing = document.querySelector(`script[data-local-tool="${globalName}"]`);
-          if (existing) { existing.addEventListener('load', () => resolve(window[globalName])); existing.addEventListener('error', () => reject(new Error('Optional reading library failed to load.'))); return; }
-          const script = document.createElement('script'); script.src = src; script.async = true; script.dataset.localTool = globalName;
-          script.onload = () => window[globalName] ? resolve(window[globalName]) : reject(new Error('Optional reading library did not initialize.'));
-          script.onerror = () => reject(new Error('Optional reading library could not be downloaded. Check your connection and try again.'));
-          document.head.append(script);
-        } catch (error) { reject(error); }
-      });
-    }
-    $('#file-ocr-button').addEventListener('click', async () => {
-      const record = findLocalFile(previewFileId); if (!record) return;
-      const button = $('#file-ocr-button'); button.disabled = true;
-      $('#preview-tool-status').textContent = 'Loading optional OCR from the pinned CDN…';
-      try {
-        const tesseract = await loadScriptOnce('https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js', 'Tesseract');
-        const worker = await tesseract.createWorker('eng', 1, { logger: message => { if (message.status) $('#preview-tool-status').textContent = `${message.status}${message.progress ? ` · ${Math.round(message.progress * 100)}%` : ''}`; } });
-        const result = await worker.recognize(record.blob);
-        await worker.terminate();
-        $('#ocr-result-text').value = result.data.text || '';
-        $('#ocr-result-wrap').hidden = false;
-        $('#preview-tool-status').textContent = 'Text extracted on this device. Review and edit it before using it.';
-      } catch (error) {
-        button.hidden = true;
-        $('#preview-tool-status').textContent = `Optional OCR is unavailable: ${error.message}`;
-      } finally { button.disabled = false; }
-    });
-    // OCR: optional pinned CDN helpers act on local Blob data only; no document bytes are uploaded.
-    async function loadPinnedPdfReader() {
-      if (window.dailyTargetsPdfReader) return window.dailyTargetsPdfReader;
-      return new Promise((resolve, reject) => {
-        try {
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-          script.async = true; script.dataset.dailyTargetsPdf = 'pinned-3.11.174';
-          script.onload = () => {
-            if (!window.pdfjsLib) return reject(new Error('Pinned PDF.js did not initialize.'));
-            window.dailyTargetsPdfReader = window.pdfjsLib; resolve(window.dailyTargetsPdfReader);
-          };
-          script.onerror = () => reject(new Error('Pinned PDF.js could not be downloaded. Check your connection and try again.'));
-          document.head.append(script);
-        } catch (error) { reject(error); }
-      });
-    }
-    $('#pdf-text-button').addEventListener('click', async () => {
-      const record = findLocalFile(previewFileId); if (!record) return;
-      const button = $('#pdf-text-button'); button.disabled = true; $('#preview-tool-status').textContent = 'Loading optional PDF text reader…';
-      try {
-        const pdfjs = await loadPinnedPdfReader();
-        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        const bytes = new Uint8Array(await record.blob.arrayBuffer());
-        const pdf = await pdfjs.getDocument({ data: bytes }).promise;
-        const pages = [];
-        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
-          $('#preview-tool-status').textContent = `Reading PDF text layer · page ${pageNumber} of ${pdf.numPages}`;
-          const page = await pdf.getPage(pageNumber); const content = await page.getTextContent();
-          pages.push(content.items.map(item => item.str || '').join(' '));
-        }
-        $('#ocr-result-text').value = pages.join('\n\n'); $('#ocr-result-wrap').hidden = false;
-        $('#preview-tool-status').textContent = 'PDF text layer extracted on this device. Scanned-image OCR is not attempted.';
-      } catch (error) {
-        button.hidden = true; $('#preview-tool-status').textContent = `Optional PDF text reading is unavailable: ${error.message}`;
-      } finally { button.disabled = false; }
-    });
-
-    // LINKS: schedule blocks and focused study sessions reference file records locally.
-    function renderSessionTagChips(value) {
-      const tags = normalizeSessionTags(value);
-      if (!tags.length) return '';
-      return `<div class="session-tag-list" role="group" aria-label="Session categories and tags">${tags.map(tag => `<button class="session-tag" type="button" data-action="filter-session-tag" data-tag="${escapeHtml(tag)}" aria-label="Show sessions tagged ${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}</div>`;
-    }
-    function renderSessions() {
-      const list = $('#session-list'); if (!list) return;
-      const sessions = Array.isArray(state.sessions) ? state.sessions : [];
-      const sorted = [...sessions].sort((a,b) => String(a.date).localeCompare(String(b.date)));
-      const filter = $('#session-tag-filter');
-      const previousTag = filter.value;
-      const tagMap = new Map();
-      sorted.forEach(item => normalizeSessionTags(item.tags).forEach(tag => tagMap.set(tag.toLocaleLowerCase(), tag)));
-      const availableTags = [...tagMap.values()].sort((a,b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-      filter.innerHTML = '<option value="">All tags</option>' + availableTags.map(tag => `<option value="${escapeHtml(tag)}">${escapeHtml(tag)}</option>`).join('');
-      filter.value = availableTags.some(tag => tag === previousTag) ? previousTag : '';
-      const query = $('#session-search').value.trim().toLocaleLowerCase();
-      const selectedTag = filter.value.toLocaleLowerCase();
-      const visible = sorted.filter(item => {
-        const tags = normalizeSessionTags(item.tags);
-        const searchable = `${item.title || ''} ${item.course || ''} ${item.notes || ''} ${tags.join(' ')}`.toLocaleLowerCase();
-        return (!query || searchable.includes(query)) && (!selectedTag || tags.some(tag => tag.toLocaleLowerCase() === selectedTag));
-      });
-      $('#session-clear-filters').hidden = !query && !selectedTag;
-      $('#session-summary').textContent = sessions.length
-        ? (visible.length === sessions.length ? `${sessions.length} study session${sessions.length === 1 ? '' : 's'}` : `Showing ${visible.length} of ${sessions.length} study sessions`)
-        : '';
-      list.innerHTML = visible.map(item => { const itemDate = dayKey(new Date(item.date)); const done = Boolean(state.checks && state.checks[completionKey(itemDate, 'session', item.id)]); return `<article class="session-card${done ? ' is-complete' : ''}"><div class="schedule-row"><div class="session-card-title"><button class="activity-check session-done${done ? ' checked' : ''}" type="button" role="checkbox" aria-checked="${done}" aria-label="${done ? 'Mark incomplete' : 'Mark complete'}: ${escapeHtml(item.title)}" data-action="complete-planned" data-kind="session" data-id="${escapeHtml(item.id)}" data-date="${itemDate}">${done ? '✓' : ''}</button><div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(new Date(item.date).toLocaleString())}</p>${item.course ? `<span class="course-badge" style="--course-color:${courseColor(item.course)}">${escapeHtml(item.course)}</span>` : ''}${item.notes ? `<p>${escapeHtml(item.notes)}</p>` : ''}${renderSessionTagChips(item.tags)}${renderLinkedFileNames('session',item.id)}</div></div><div class="schedule-actions"><button class="button small" type="button" data-action="attach-session" data-id="${escapeHtml(item.id)}">Attach files</button><button class="button small" type="button" data-action="edit-session" data-id="${escapeHtml(item.id)}">Edit</button><button class="button small danger" type="button" data-action="delete-session" data-id="${escapeHtml(item.id)}">Delete</button></div></div></article>`; }).join('')
-        || (sessions.length ? '<div class="empty"><strong>No sessions match these filters</strong>Try another search or tag, or clear the filters above.</div>' : '<div class="empty"><strong>No study sessions yet</strong>Add a session and give it your own categories or tags.</div>');
-    }
-    $('#session-search').addEventListener('input', renderSessions);
-    $('#session-tag-filter').addEventListener('change', renderSessions);
-    $('#session-clear-filters').addEventListener('click', () => {
-      $('#session-search').value = ''; $('#session-tag-filter').value = ''; renderSessions(); $('#session-search').focus();
-    });
-    function resetSessionForm() {
-      $('#session-form').reset(); $('#session-id').value='';
-      const now = new Date(); now.setMinutes(Math.ceil(now.getMinutes()/15)*15,0,0);
-      $('#session-date').value = `${dayKey(now)}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
-      $('#session-save').textContent='Add study session'; $('#session-cancel').hidden=true;
-    }
-    $('#session-form').addEventListener('submit', event => {
-      event.preventDefault();
-      const id=$('#session-id').value, title=$('#session-title').value.trim(), date=$('#session-date').value, notes=$('#session-notes').value.trim();
-      if (!title || !Number.isFinite(Date.parse(date))) return showNotice('Enter a session title and a valid date/time.',true);
-      const tagResult = parseSessionTagInput($('#session-tags').value);
-      if (tagResult.error) return showNotice(tagResult.error, true);
-      const course=$('#session-course').value.trim().slice(0,48);
-      const item={id:id||makeId(),title,date:new Date(date).toISOString(),course,notes,tags:tagResult.tags};
-      if (!Array.isArray(state.sessions)) state.sessions=[];
-      const index=state.sessions.findIndex(entry=>entry.id===id);
-      if(index>=0) state.sessions[index]=item; else state.sessions.push(item);
-      if(!storageWrite()){renderSessions();return;}
-      resetSessionForm(); renderSessions(); showNotice('Study session saved.');
-    });
-    $('#session-cancel').addEventListener('click', resetSessionForm);
-    function editSession(id) {
-      const item=(state.sessions||[]).find(entry=>entry.id===id); if(!item)return;
-      $('#session-id').value=item.id; $('#session-title').value=item.title;
-      const date=new Date(item.date); $('#session-date').value=`${dayKey(date)}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-      $('#session-course').value=item.course||'';
-      $('#session-tags').value=normalizeSessionTags(item.tags).join(', ');
-      $('#session-notes').value=item.notes||''; $('#session-save').textContent='Save session'; $('#session-cancel').hidden=false;
-      $('#session-title').focus(); $('#session-form').scrollIntoView({behavior:'smooth',block:'center'});
-    }
-    async function deleteLocalFile(id) {
-      const record=findLocalFile(id); if(!record)return;
-      if(!confirm(`Delete “${record.name}”? This also removes it from every linked study session and schedule block.`))return;
-      try {
-        await fileDbRequest('readwrite','delete',record.key);
-        const url=thumbnailUrls.get(id); if(url){URL.revokeObjectURL(url);thumbnailUrls.delete(id);}
-        fileCache=fileCache.filter(item=>item.id!==id); renderFiles(); renderSchedule(); renderSessions(); updateFileStorageUsage();
-        showNotice('File deleted and all of its local links removed.');
-      } catch(error) { showNotice(`Could not delete file: ${error.message}`,true); }
-    }
-    document.addEventListener('click', async event => {
-      const button=event.target.closest('button[data-action]'); if(!button)return;
-      const {action,id}=button.dataset;
-      if(action==='file-preview') { openFilePreview(findLocalFile(id)); }
-      else if(action==='file-download') { const record=findLocalFile(id); if(record)downloadFile(record); }
-      else if(action==='file-rename') {
-        const record=findLocalFile(id); if(!record)return;
-        const name=prompt('New file name',record.name); if(name===null)return;
-        const cleaned=fileDownloadName(name.trim()); if(!cleaned || !ALLOWED_EXTENSIONS.has(fileExtension(cleaned)))return showNotice('Keep a supported file extension in the name.',true);
-        try { record.name=cleaned; await saveFileRecord(record); renderFiles(); renderSchedule(); renderSessions(); showNotice('File renamed.'); } catch(error){showNotice(`Could not rename file: ${error.message}`,true);}
-      } else if(action==='file-tag') {
-        const record=findLocalFile(id); if(!record)return;
-        const tags=prompt('Tags, separated by commas', (record.tags||[]).join(', ')); if(tags===null)return;
-        try { record.tags=[...new Set(tags.split(',').map(tag=>tag.trim()).filter(Boolean).map(tag=>tag.slice(0,40)))]; await saveFileRecord(record); renderFiles(); showNotice('File tags saved.'); } catch(error){showNotice(`Could not save file tags: ${error.message}`,true);}
-      } else if(action==='file-delete') { await deleteLocalFile(id); }
-      else if(action==='attach-schedule') { await openAttachPicker('schedule',id); }
-      else if(action==='attach-session') { await openAttachPicker('session',id); }
-      else if(action==='filter-session-tag') {
-        $('#session-search').value = ''; $('#session-tag-filter').value = button.dataset.tag || '';
-        renderSessions(); $('#session-tag-filter').focus();
-      }
-      else if(action==='edit-session') { editSession(id); }
-      else if(action==='delete-session') {
-        const item=(state.sessions||[]).find(entry=>entry.id===id); if(!item||!confirm(`Delete study session “${item.title}”? Its linked files remain in My Files.`))return;
-        state.sessions=state.sessions.filter(entry=>entry.id!==id);
-        try { for(const record of fileCache){ const next=(record.linkedTo||[]).filter(link=>!(link.kind==='session'&&link.id===id)); if(next.length!==(record.linkedTo||[]).length){record.linkedTo=next;await saveFileRecord(record);} } } catch(error){showNotice(`Session removed, but a file link could not be updated: ${error.message}`,true);}
-        if(storageWrite()){renderSessions();renderFiles();showNotice('Study session deleted. Its files remain in your library.');}
-      }
-    });
-
-    // EXPORT: backup includes file contents as Base64 with an explicit large-export warning.
-    function bytesToBase64(buffer) {
-      const bytes=new Uint8Array(buffer); let binary=''; const chunk=0x8000;
-      for(let offset=0;offset<bytes.length;offset+=chunk) binary+=String.fromCharCode(...bytes.subarray(offset,Math.min(offset+chunk,bytes.length)));
-      return btoa(binary);
-    }
-    function base64ToBlob(encoded,type) {
-      const binary=atob(encoded); const bytes=new Uint8Array(binary.length);
-      for(let index=0;index<binary.length;index+=1)bytes[index]=binary.charCodeAt(index);
-      return new Blob([bytes],{type:type||'application/octet-stream'});
-    }
-    async function exportFullBackup() {
-      try {
-        const records=await fileDbRequest('readonly','all-owner',fileOwnerKey())||[];
-        const total=records.reduce((sum,item)=>sum+Number(item.size||0),0);
-        if(total>25*1024*1024&&!confirm(`This backup will include ${formatBytes(total)} of file contents encoded as Base64. The JSON backup may be about 33% larger and can take a while. Continue?`))return;
-        const files=[];
-        for(const record of records){ files.push({id:record.id,name:record.name,type:record.type,size:record.size,uploadedAt:record.uploadedAt,tags:record.tags||[],linkedTo:record.linkedTo||[],contentBase64:bytesToBase64(await record.blob.arrayBuffer())}); }
-        const backup={format:'daily-targets-backup-v2',exportedAt:new Date().toISOString(),state,files,warning:'File contents are Base64 encoded in this JSON. Keep this backup private; it contains your files.'};
-        const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}), url=URL.createObjectURL(blob);
-        const anchor=document.createElement('a'); anchor.href=url; anchor.download=`daily-targets-${dayKey()}-backup.json`; anchor.click();
-        setTimeout(()=>URL.revokeObjectURL(url),1500); showNotice(`Backup exported with ${files.length} file${files.length===1?'':'s'} (${formatBytes(total)} before Base64 encoding).`);
-      } catch(error){showNotice(`Could not export a complete backup: ${error.message}`,true);}
-    }
-    async function importFullBackup(file) {
-      const text=await file.text(); const imported=JSON.parse(text);
-      if(!isRecord(imported)||!validState(imported.state||imported))throw new Error('This is not a valid Daily Targets backup.');
-      const importedState=imported.state||imported;
-      const files=Array.isArray(imported.files)?imported.files:[];
-      if(!confirm(`Replace this account’s planner data and local file library with this backup? ${files.length} file(s) will be restored on this device.`))return false;
-      const normalized={
-        activities:importedState.activities.map(item=>({...item,unit:item.unit||'times',course:typeof item.course==='string'?item.course.slice(0,48):'',reminders:Array.isArray(item.reminders)?item.reminders:[],activeFrom:item.activeFrom||''})),
-        logs:importedState.logs,fired:normalizeFired(importedState.fired),schedule:Array.isArray(importedState.schedule)?importedState.schedule:[],
-        settings:{...defaultSettings(),...(isRecord(importedState.settings)?importedState.settings:{})},plans:isRecord(importedState.plans)?importedState.plans:{},bedtime:isRecord(importedState.bedtime)?importedState.bedtime:{},sessions:Array.isArray(importedState.sessions)?importedState.sessions.filter(isRecord).map(item=>({...item,course:typeof item.course==='string'?item.course.slice(0,48):'',tags:normalizeSessionTags(item.tags)})):[],checks:isRecord(importedState.checks)?importedState.checks:{}
-      };
-      if(files.some(item=>!item||typeof item.id!=='string'||typeof item.name!=='string'||typeof item.contentBase64!=='string'||!ALLOWED_EXTENSIONS.has(fileExtension(item.name))))throw new Error('The backup contains an invalid file record.');
-      for(const item of files){const blob=base64ToBlob(item.contentBase64,item.type); if(blob.size>FILE_MAX_SIZE)throw new Error(`“${item.name}” exceeds the 10 MB per-file limit.`);}
-      const records=files.map(item=>{const blob=base64ToBlob(item.contentBase64,item.type);return {key:fileKey(item.id),id:item.id,ownerId:fileOwnerKey(),name:fileDownloadName(item.name),type:item.type||blob.type,size:blob.size,uploadedAt:item.uploadedAt||new Date().toISOString(),tags:Array.isArray(item.tags)?item.tags.filter(tag=>typeof tag==='string').slice(0,50):[],linkedTo:Array.isArray(item.linkedTo)?item.linkedTo.filter(link=>link&&['schedule','session'].includes(link.kind)&&typeof link.id==='string'):[],blob};});
-      state=normalized;
-      if(!storageWrite())throw new Error('Could not save planner data; existing file library was left unchanged.');
-      await fileDbRequest('readwrite','clear-owner',fileOwnerKey());
-      for(const record of records)await fileDbRequest('readwrite','put',record);
-      await refreshFiles(); resetTargetForm(); resetScheduleForm(); resetSessionForm(); renderAll();
-      showNotice(`Backup imported successfully. Restored ${records.length} local file${records.length===1?'':'s'}.`);
-      return true;
-    }
-    $('#export-button').addEventListener('click', event => { event.preventDefault(); exportFullBackup(); });
-
-    // Click actions and startup
-    document.addEventListener('click', event => {
-      const button = event.target.closest('button[data-action]');
-      if (!button) return;
-      const { action, id } = button.dataset;
-      if (action === 'open-menu') {
-        $(`#menu-tab-${button.dataset.menu}`)?.click();
-      } else if (action === 'complete-target') {
-        const item = state.activities.find(activity => activity.id === id);
-        if (!item) return;
-        const date = button.dataset.date || dayKey(), goal = goalFor(item, date);
-        if (!isRecord(state.logs[date])) state.logs[date] = {};
-        state.logs[date][id] = countFor(id, date) >= goal ? 0 : goal;
-        if (!state.logs[date][id]) delete state.logs[date][id];
-        if (!storageWrite()) { renderAll(); return; }
-        renderAll();
-      } else if (action === 'complete-planned') {
-        const date = button.dataset.date || dayKey();
-        if (!isRecord(state.checks)) state.checks = {};
-        const key = completionKey(date, button.dataset.kind, id);
-        if (state.checks[key]) delete state.checks[key]; else state.checks[key] = true;
-        if (!storageWrite()) { renderAll(); return; }
-        renderAll();
-      } else if (action === 'adjust') {
-        const date = dayKey();
-        if (!isRecord(state.logs[date])) state.logs[date] = {};
-        state.logs[date][id] = Math.max(0, countFor(id, date) + Number(button.dataset.delta));
-        if (!state.logs[date][id]) delete state.logs[date][id];
-        if (!storageWrite()) { renderAll(); return; }
-        renderAll();
-      } else if (action === 'edit-target') {
-        const item = state.activities.find(activity => activity.id === id);
-        if (!item) return;
-        $('#target-id').value = item.id;
-        $('#target-name').value = item.name;
-        $('#target-course').value = item.course || '';
-        $('#target-goal').value = item.goal;
-        $('#target-unit').value = item.unit;
-        $('#target-reminders').value = item.reminders.join(', ');
-        $('#target-form-heading').textContent = 'Edit daily target';
-        $('#target-save').textContent = 'Save changes';
-        $('#target-cancel').hidden = false;
-        $('#target-name').focus();
-        $('#target-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else if (action === 'delete-target') {
-        const item = state.activities.find(activity => activity.id === id);
-        if (!item || !confirm(`Delete "${item.name}" and its saved progress?`)) return;
-        state.activities = state.activities.filter(activity => activity.id !== id);
-        Object.values(state.logs).forEach(log => { delete log[id]; });
-        Object.values(state.plans).forEach(plan => { delete plan[id]; });
-        if (!storageWrite()) { renderAll(); return; }
-        renderAll();
-      } else if (action === 'edit-schedule') {
-        editSchedule(id);
-      } else if (action === 'delete-schedule') {
-        const item = state.schedule.find(schedule => schedule.id === id);
-        if (!item || !confirm(`Delete "${item.title}" from your schedule?`)) return;
-        state.schedule = state.schedule.filter(schedule => schedule.id !== id);
-        if (!storageWrite()) { renderAll(); return; }
-        renderAll();
-      }
-    });
-
-    function renderAll() {
-      applySettings();
-      renderTargets();
-      renderSchedule();
-      renderReminders();
-      renderSessions();
-      if (!$('#session-date').value) resetSessionForm();
-      void refreshFiles();
-    }
-
-    function setAuthMessage(message, error = false) {
-      const element = $('#auth-message');
-      element.textContent = message;
-      element.classList.toggle('error', error);
-    }
-
-    function setAuthMode(mode) {
-      authMode = mode;
-      const signingUp = mode === 'sign-up';
-      $('#auth-sign-in-tab').setAttribute('aria-pressed', String(!signingUp));
-      $('#auth-sign-up-tab').setAttribute('aria-pressed', String(signingUp));
-      $('#auth-heading').textContent = signingUp ? 'Create your account' : 'Log in';
-      $('#auth-intro').textContent = signingUp
-        ? 'Create an account to keep your targets and schedule in sync across your devices.'
-        : 'Pick up where you left off.';
-      $('#auth-submit').textContent = signingUp ? 'Create account' : 'Sign in';
-      $('#auth-password').autocomplete = signingUp ? 'new-password' : 'current-password';
-      const authModeLink = $('#auth-create-account');
-      if (authModeLink) {
-        authModeLink.textContent = signingUp ? 'Log in' : 'Create an account';
-        authModeLink.dataset.mode = signingUp ? 'sign-in' : 'sign-up';
-      }
-      setAuthMessage('');
-    }
-
-    function showAuthScreen(message = '', error = false) {
-      activeUser = null;
-      cloudPersistenceReady = false;
-      appStartedForUser = '';
-      $('#app-shell').hidden = true;
-      $('#landing-screen').hidden = true;
-      $('#auth-screen').hidden = false;
-      $('#account-email').textContent = '';
-      if (message) setAuthMessage(message, error);
-    }
-
-    function showLanding() {
-      activeUser = null;
-      cloudPersistenceReady = false;
-      appStartedForUser = '';
-      $('#app-shell').hidden = true;
-      $('#auth-screen').hidden = true;
-      $('#landing-screen').hidden = false;
-      $('#account-email').textContent = '';
-    }
-
-    async function activateUser(user) {
-      if (appStartedForUser === user.id || loadingUserId === user.id) return;
-      loadingUserId = user.id;
-      activeUser = user;
-      cloudPersistenceReady = false;
-      try {
-        const { data, error } = await supabaseClient
-          .from('daily_target_data')
-          .select('data')
-          .eq('user_id', user.id)
-          .maybeSingle();
-        if (error) throw error;
-
-        const accountStorageKey = `${STORAGE_KEY}:${user.id}`;
-        let savedData;
-        if (data) {
-          if (!validState(data.data)) throw new Error('Your cloud data has an invalid format. It was not changed.');
-          savedData = data.data;
-          localStorage.setItem(accountStorageKey, JSON.stringify(savedData));
-        } else {
-          savedData = localStorage.getItem(accountStorageKey);
-          if (!savedData) {
-            const legacyOwner = localStorage.getItem(LEGACY_OWNER_KEY);
-            if (!legacyOwner || legacyOwner === user.id) {
-              savedData = localStorage.getItem(STORAGE_KEY);
-              if (savedData) {
-                localStorage.setItem(LEGACY_OWNER_KEY, user.id);
-                localStorage.setItem(accountStorageKey, savedData);
-              }
-            }
-          }
-          if (savedData && !validState(JSON.parse(savedData))) {
-            throw new Error('Your saved data has an invalid format. It was not changed.');
-          }
-        }
-
-        state = { activities: [], logs: {}, fired: {}, schedule: [], settings: defaultSettings(), plans: {}, bedtime: {}, sessions: [], checks: {} };
-        loadState();
-        cloudPersistenceReady = true;
-        appStartedForUser = user.id;
-        loadingUserId = '';
-        $('#auth-screen').hidden = true;
-        $('#landing-screen').hidden = true;
-        $('#app-shell').hidden = false;
-        $('#account-email').textContent = user.email || 'Signed in';
-        renderAll();
-        checkReminders();
-        if (!reminderTimerStarted) {
-          setInterval(checkReminders, 30000);
-          reminderTimerStarted = true;
-        }
-        if (!data) storageWrite();
-      } catch (error) {
-        loadingUserId = '';
-        activeUser = null;
-        cloudPersistenceReady = false;
-        showAuthScreen(`Could not load your account data: ${error.message}`, true);
-      }
-    }
-
-    function startLocalApp() {
-      if (appStartedForUser) return;
-      appStartedForUser = 'local';
-      activeUser = null;
-      cloudPersistenceReady = false;
-      state = { activities: [], logs: {}, fired: {}, schedule: [], settings: defaultSettings(), plans: {}, bedtime: {}, sessions: [], checks: {} };
-      loadState();
-      $('#auth-screen').hidden = true;
-      $('#landing-screen').hidden = true;
-      $('#app-shell').hidden = false;
-      $('#account-email').hidden = true;
-      $('#sign-out').hidden = true;
-      $('#data-storage-heading').textContent = 'Your data is saved on this device';
-      $('#data-storage-description').textContent = 'Export a backup to move it to another browser or device.';
-      renderAll();
-      checkReminders();
-      if (!reminderTimerStarted) {
-        setInterval(checkReminders, 30000);
-        reminderTimerStarted = true;
-      }
-    }
-
-    let loadingUserId = '';
-    let reminderTimerStarted = false;
-
-    $('#auth-sign-in-tab').addEventListener('click', () => setAuthMode('sign-in'));
-    $('#auth-sign-up-tab').addEventListener('click', () => setAuthMode('sign-up'));
-    const showAuth = () => showAuthScreen();
-    ['#landing-login', '#landing-login-cta'].forEach(selector => {
-      const element = $(selector);
-      if (element) element.addEventListener('click', showAuth);
-    });
-    const landingLocal = $('#landing-local');
-    if (landingLocal) landingLocal.addEventListener('click', () => {
-      landingLocal.disabled = true;
-      startLocalApp();
-    });
-    const createAccountLink = $('#auth-create-account');
-    if (createAccountLink) {
-      createAccountLink.addEventListener('click', event => {
-        event.preventDefault();
-        const nextMode = createAccountLink.dataset.mode || 'sign-up';
-        setAuthMode(nextMode);
-        createAccountLink.dataset.mode = nextMode === 'sign-up' ? 'sign-in' : 'sign-up';
-        createAccountLink.textContent = nextMode === 'sign-up' ? 'Log in' : 'Create an account';
-      });
-    }
-    if ($('#auth-local-continue')) {
-      $('#auth-local-continue').addEventListener('click', () => {
-        $('#auth-local-continue').hidden = true;
-        startLocalApp();
-      });
-    }
-    $('#auth-form').addEventListener('submit', async event => {
-      event.preventDefault();
-      if (!supabaseClient) return setAuthMessage('Supabase is not connected. Follow the setup instructions below.', true);
-      const email = $('#auth-email').value.trim();
-      const password = $('#auth-password').value;
-      const submit = $('#auth-submit');
-      submit.disabled = true;
-      submit.dataset.label = submit.textContent;
-      submit.textContent = 'Logging in…';
-      setAuthMessage(authMode === 'sign-up' ? 'Creating your account…' : 'Signing in…');
-      try {
-        const result = authMode === 'sign-up'
-          ? await supabaseClient.auth.signUp({
-            email,
-            password,
-            options: { emailRedirectTo: `${window.location.origin}${window.location.pathname}` }
-          })
-          : await supabaseClient.auth.signInWithPassword({ email, password });
-        if (result.error) throw result.error;
-        if (authMode === 'sign-up' && !result.data.session) {
-          setAuthMessage('Account created. Check your email to confirm your address, then sign in.');
-        } else {
-          setAuthMessage('Signed in. Loading your data…');
-        }
-      } catch (error) {
-        setAuthMessage(error.message, true);
-      } finally {
-        submit.disabled = false;
-        submit.textContent = submit.dataset.label || 'Log in';
-      }
-    });
-    $('#sign-out').addEventListener('click', async () => {
-      $('#sign-out').disabled = true;
-      try {
-        const { error } = await supabaseClient.auth.signOut();
-        if (error) showNotice(`Could not sign out: ${error.message}`, true);
-      } catch (error) {
-        showNotice(`Could not sign out: ${error.message}`, true);
-      } finally {
-        $('#sign-out').disabled = false;
-      }
-    });
-
-    window.addEventListener('daily-targets-supabase-ready', async event => {
-      supabaseClient = window.dailyTargetsSupabase || null;
-      if (!supabaseClient) {
-        const message = event.detail && event.detail.error
-          ? event.detail.error
-          : 'Could not initialize Supabase.';
-        if (message === 'Supabase is not configured yet.') {
-          $('#auth-setup').hidden = false;
-          if ($('#auth-local-continue')) $('#auth-local-continue').hidden = false;
-          showLanding();
-          return;
-        }
-        setAuthMessage(message, true);
-        return;
-      }
-
-      if ($('#auth-local-continue')) $('#auth-local-continue').hidden = true;
-      $('#auth-setup').hidden = true;
-      $('#auth-submit').disabled = false;
-      $('#account-email').hidden = false;
-      $('#sign-out').hidden = false;
-      $('#data-storage-heading').textContent = 'Your data syncs to your account';
-      $('#data-storage-description').textContent = 'A local copy is kept on this device too. Export a backup any time.';
-      supabaseClient.auth.onAuthStateChange((authEvent, session) => {
-        window.setTimeout(() => {
-          if (session && session.user) {
-            activateUser(session.user);
-          } else if (authEvent === 'SIGNED_OUT') {
-            showLanding();
-          } else if (authEvent === 'INITIAL_SESSION') {
-            showLanding();
-          }
-        }, 0);
-      });
-      const { data, error } = await supabaseClient.auth.getSession();
-      if (error) {
-        setAuthMessage(`Could not check your sign-in status: ${error.message}`, true);
-      } else if (data.session && data.session.user) {
-        await activateUser(data.session.user);
-      } else {
-        showLanding();
-      }
-    });
-
-    let dailyTargetsInstallPrompt = null;
-    let dailyTargetsOfflineShellReady = false;
-    const pwaStatus = $('#pwa-status');
-    const pwaInstallButton = $('#pwa-install-button');
-    window.addEventListener('offline', () => {
-      pwaStatus.textContent = dailyTargetsOfflineShellReady
-        ? 'Offline. The cached app is available here; your planner and files stay on this device.'
-        : 'Offline. Reconnect to the laptop server to continue; this device keeps its own planner data.';
-    });
-    window.addEventListener('online', () => {
-      if (dailyTargetsInstallPrompt) pwaStatus.textContent = 'This device can install StudyTrack as an app.';
-      else if (dailyTargetsOfflineShellReady) pwaStatus.textContent = 'Offline app files are ready on this device. Planner data and files stay local.';
-      else if (!window.isSecureContext) pwaStatus.textContent = 'Connected to the laptop. This local Wi-Fi address works while the server is on.';
-    });
-    window.addEventListener('beforeinstallprompt', event => {
-      event.preventDefault();
-      dailyTargetsInstallPrompt = event;
-      pwaInstallButton.hidden = false;
-      if (navigator.onLine) pwaStatus.textContent = 'This device can install StudyTrack as an app.';
-    });
-    window.addEventListener('appinstalled', () => {
-      dailyTargetsInstallPrompt = null;
-      pwaInstallButton.hidden = true;
-      if (navigator.onLine) pwaStatus.textContent = 'StudyTrack is installed on this device. Its data stays in this browser.';
-    });
-    pwaInstallButton.addEventListener('click', async () => {
-      if (!dailyTargetsInstallPrompt) return;
-      dailyTargetsInstallPrompt.prompt();
-      const choice = await dailyTargetsInstallPrompt.userChoice;
-      dailyTargetsInstallPrompt = null;
-      pwaInstallButton.hidden = true;
-      pwaStatus.textContent = choice.outcome === 'accepted'
-        ? 'Installation started. This device keeps a separate local copy.'
-        : 'Installation was cancelled. You can still use StudyTrack in this browser.';
-    });
-    if (!window.isSecureContext) {
-      pwaStatus.textContent = 'This local Wi-Fi address works while the laptop server is on. Installable offline caching requires HTTPS or localhost.';
-    } else if ('serviceWorker' in navigator) {
-      pwaStatus.textContent = 'Preparing offline app files on this device…';
-      navigator.serviceWorker.register('./service-worker.js', { scope: './' })
-        .then(() => Promise.race([
-          navigator.serviceWorker.ready,
-          new Promise((_, reject) => window.setTimeout(() => reject(new Error('Offline setup timed out. Check that the app files are present, then reload.')), 15000))
-        ]))
-        .then(() => {
-          dailyTargetsOfflineShellReady = true;
-          pwaStatus.textContent = navigator.onLine
-            ? 'Offline app files are ready on this device. Planner data and files stay local.'
-            : 'Offline. The cached app is available here; your planner and files stay on this device.';
-        })
-        .catch(error => { pwaStatus.textContent = `Offline caching could not start: ${error.message}. You can still use the planner while this page is open.`; });
-    } else {
-      pwaStatus.textContent = 'This browser does not support offline app installation. You can still use the planner in a tab.';
-    }
-
-    setAuthMode('sign-in');
-  </script>
-</body>
-</html>
