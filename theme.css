@@ -1,51 +1,53 @@
 :root {
-  color-scheme: dark;
-  --page: #061a1f;
-  --page-strong: #0b2530;
-  --surface: #0c232c;
-  --surface-alt: #112f3a;
-  --surface-soft: #153744;
-  --ink: #e8f8f7;
-  --ink-strong: #ffffff;
-  --muted: #9ec5c8;
-  --line: #2d4d58;
-  --accent: #4ee0b6;
-  --accent-strong: #79f4cf;
-  --accent-soft: rgba(78, 224, 182, 0.14);
-  --accent-warm: #8bf4d6;
-  --success: #6fe3af;
-  --warning: #f6b869;
-  --danger: #ff7d82;
-  --shadow: 0 22px 52px rgba(2, 10, 14, 0.52);
-  --shadow-soft: 0 12px 24px rgba(7, 24, 30, 0.38);
+  color-scheme: light;
+  --page: #f5f0e7;
+  --page-strong: #f9f5ef;
+  --surface: #fffdf9;
+  --surface-alt: #f2ead7;
+  --surface-soft: #efe4d0;
+  --ink: #1f2a26;
+  --ink-strong: #12211d;
+  --muted: #5a645e;
+  --line: #d7c9b0;
+  --accent: #3f5f52;
+  --accent-strong: #2c4e43;
+  --accent-soft: rgba(63, 95, 82, 0.12);
+  --gold: #b88b45;
+  --gold-strong: #9c712d;
+  --success: #4c7260;
+  --warning: #b97e33;
+  --danger: #8f3f3f;
+  --shadow: 0 18px 44px rgba(31, 42, 38, 0.12);
+  --shadow-soft: 0 10px 24px rgba(31, 42, 38, 0.08);
   --radius-xl: 24px;
   --radius-lg: 18px;
   --radius-md: 12px;
   --radius-sm: 10px;
-  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-display: "Georgia", "Times New Roman", serif;
 }
 
-:root[data-theme="light"] {
-  color-scheme: light;
-  --page: #ebf5f3;
-  --page-strong: #f6faf9;
-  --surface: #ffffff;
-  --surface-alt: #eefaf8;
-  --surface-soft: #e7f7f3;
-  --ink: #17363d;
-  --ink-strong: #0d1d23;
-  --muted: #58767d;
-  --line: #d1e5e2;
-  --accent: #1ea983;
-  --accent-strong: #1b8d72;
-  --accent-soft: rgba(30, 169, 131, 0.12);
-  --accent-warm: #30c79c;
-  --success: #2bbd8f;
-  --warning: #d9983d;
-  --danger: #d5575b;
-  --shadow: 0 16px 40px rgba(18, 47, 53, 0.12);
-  --shadow-soft: 0 10px 22px rgba(18, 47, 53, 0.08);
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #101a1c;
+  --page-strong: #162328;
+  --surface: #1c2a2e;
+  --surface-alt: #24373d;
+  --surface-soft: #2a3d42;
+  --ink: #edf3ee;
+  --ink-strong: #f7faf9;
+  --muted: #afc0b9;
+  --line: rgba(180, 192, 188, 0.18);
+  --accent: #7c9a8d;
+  --accent-strong: #a8bfb0;
+  --accent-soft: rgba(124, 154, 141, 0.18);
+  --gold: #d7b06d;
+  --gold-strong: #c79a4b;
+  --success: #8fb89a;
+  --warning: #d5a661;
+  --danger: #d38585;
+  --shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+  --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.22);
 }
 
 html {
@@ -54,8 +56,8 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(78, 224, 182, 0.14), transparent 29%),
-    radial-gradient(circle at right 20%, rgba(18, 112, 135, 0.12), transparent 28%),
+    radial-gradient(circle at top left, rgba(63, 95, 82, 0.09), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(184, 139, 69, 0.10), transparent 32%),
     var(--page);
   color: var(--ink);
   font-family: var(--font-body);
@@ -66,5 +68,5 @@ button, input, select, textarea {
 }
 
 ::selection {
-  background: rgba(78, 224, 182, 0.28);
+  background: rgba(63, 95, 82, 0.16);
 }
